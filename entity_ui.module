@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function entity_ui_entity_type_alter(array &$entity_types) {
+  foreach ($entity_types as $type_name => $type) {
+    
+    foreach (entity_ui_get_ops() as $operation) {
+      // TODO: add a prefix to template name to prevent any clashes?
+      $type->setLinkTemplate($operation, $type->getLinkTemplate('canonical') . '/' . $operation);      
+    }
+    
+    
+    // @todo Core forgot to add a direct way to manipulate route_provider, so
+    // we have to do it the sloppy way for now.
+    $providers = $type->getRouteProviderClasses() ?: [];
+    if (empty($providers['entity_ui'])) {
+      $providers['entity_ui'] = Drupal\entity_ui\Routing\RouteProvider::class;
+      $type->setHandlerClass('route_provider', $providers);
+    }
+  }
+}
+
+
+function entity_ui_get_ops() {
+  return [
+    'foobar',
+    'wibble',
+  ];
+}
+
+function entity_ui_output() {
+  return [
+    '#markup' => 'op!',
+  ];
+}
