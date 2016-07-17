@@ -1,0 +1,6 @@
+entity.entity_tab.add_form:
+  route_name: 'entity.entity_tab.add_form'
+  title: 'Add Entity tab'
+  appears_on:
+    - entity.entity_tab.collection
+

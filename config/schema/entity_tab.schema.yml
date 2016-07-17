@@ -1,0 +1,12 @@
+entity_ui.entity_tab.*:
+  type: config_entity
+  label: 'Entity tab config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
