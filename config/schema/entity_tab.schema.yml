@@ -1,4 +1,4 @@
-entity_ui.entity_tab.*:
+entity_ui.entity_tab.*.*:
   type: config_entity
   label: 'Entity tab config'
   mapping:
@@ -7,6 +7,22 @@ entity_ui.entity_tab.*:
       label: 'ID'
     label:
       type: label
-      label: 'Label'
+      label: 'The human-readable name of the view mode'
     uuid:
       type: string
+    targetEntityType:
+      type: string
+      label: 'Target entity type'
+    target_bundles:
+      type: sequence
+      label: 'types'
+      nullable: true
+      sequence:
+        type: string
+        label: 'Type'
+    verb:
+      type: string
+      label: 'Permission verb'
+    weight:
+      type: integer
+      label: 'Weight'
