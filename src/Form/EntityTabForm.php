@@ -45,6 +45,17 @@ class EntityTabForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
+
+    // Sets the entity type ID into the config name.
+    // TODO: this only needs to happen when adding a new entity.
+    $form_state->setValueForElement($form['id'], $this->targetEntityTypeId . '.' . $form_state->getValue('id'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     $entity_tab = $this->entity;
     $status = $entity_tab->save();
