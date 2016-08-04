@@ -6,9 +6,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class EntityTabForm.
- *
- * @package Drupal\entity_ui\Form
+ * Form for editing and creating entity tab entities.
  */
 class EntityTabForm extends EntityForm {
 
