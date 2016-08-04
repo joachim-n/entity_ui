@@ -21,7 +21,7 @@ function entity_ui_entity_type_alter(array &$entity_types) {
     // we have to do it the sloppy way for now.
     $providers = $type->getRouteProviderClasses() ?: [];
     if (empty($providers['entity_ui'])) {
-      $providers['entity_ui'] = Drupal\entity_ui\Routing\RouteProvider::class;
+      $providers['entity_ui'] = Drupal\entity_ui\Routing\TabRouteProvider::class;
       $type->setHandlerClass('route_provider', $providers);
     }
   }

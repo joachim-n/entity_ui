@@ -14,7 +14,7 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * TODO
  */
-class RouteProvider implements EntityRouteProviderInterface {
+class TabRouteProvider implements EntityRouteProviderInterface {
   // EntityHandlerInterface if need DI.
   
   /**

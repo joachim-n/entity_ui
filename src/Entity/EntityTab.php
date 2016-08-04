@@ -18,7 +18,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *       "delete" = "Drupal\entity_ui\Form\EntityTabDeleteForm"
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\entity_ui\EntityTabHtmlRouteProvider",
+ *       "html" = "Drupal\entity_ui\Routing\AdminRouteProvider",
  *     },
  *   },
  *   config_prefix = "entity_tab",

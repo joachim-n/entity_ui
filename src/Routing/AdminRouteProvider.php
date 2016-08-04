@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Route;
  * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class EntityTabHtmlRouteProvider extends AdminHtmlRouteProvider {
+class AdminRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
