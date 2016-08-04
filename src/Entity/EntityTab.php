@@ -10,6 +10,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * @ConfigEntityType(
  *   id = "entity_tab",
  *   label = @Translation("Entity tab"),
+ *   label_singular = @Translation("Entity tab"),
+ *   label_plural = @Translation("Entity tabs"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count Entity tab",
+ *     plural = "@count Entity tabs",
+ *   ),
  *   handlers = {
  *     "list_builder" = "Drupal\entity_ui\EntityTabListBuilder",
  *     "form" = {
