@@ -47,19 +47,31 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
    */
   abstract protected function getGrouping($entity);
 
+  abstract protected function getGroups();
+
   /**
    * {@inheritdoc}
    */
   public function render() {
     $build = array();
-    foreach ($this->loadGrouped() as $grouping => $entities) {
+    $grouped_entities = $this->loadGrouped();
+    foreach ($this->getGroups() as $grouping => $grouping_label) {
+      if (isset($grouped_entities[$grouping])) {
+        $entities = $grouped_entities[$grouping];
+      }
+      else {
+        $entities = [];
+      }
+
+
       // Filter entities.
+      // TODO? REMOVE?
       if (!$this->isValidGrouping($grouping)) {
         continue;
       }
 
       $table = array(
-        '#prefix' => '<h2>' . $this->getGroupingLabel($grouping) . '</h2>',
+        '#prefix' => '<h2>' . $grouping_label . '</h2>',
         '#type' => 'table',
         '#header' => $this->buildHeader(),
         '#rows' => array(),
@@ -83,7 +95,7 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
           '#type' => 'link',
           '#url' => $this->getGroupedAddURL($grouping),
           '#title' => $this->t('Add new %grouping @entity-type', array(
-            '%grouping' => $this->getGroupingLabel($grouping),
+            '%grouping' => $grouping_label,
             '@entity-type' => $this->entityType->getLowercaseLabel(),
           )),
         ),
@@ -122,7 +134,7 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
   protected function getGroupingLabel($grouping) {
     return ucfirst($grouping);
   }
-  
+
   abstract protected function getGroupedAddURL($grouping);
 
 }

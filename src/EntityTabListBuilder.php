@@ -6,6 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -47,6 +48,16 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
   protected function getGrouping($entity) {
     return 'foo';
   }
+  
+  protected function getGroups() {
+    $groups = [];
+    foreach ($this->entityTypes as $entity_type_id => $entity_type) {
+      if ($entity_type->getGroup() == 'content') {
+        $groups[$entity_type_id] = $entity_type->getLabel();
+      }
+    }
+    return $groups;
+  }
 
   /**
    * {@inheritdoc}
@@ -69,7 +80,7 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
   
   protected function getGroupedAddURL($grouping) {
     return Url::fromRoute('entity.entity_view_mode.add_form', [
-      'entity_type_id' => $entity_type,
+      'entity_type_id' => $grouping,
     ]);
   }
 
