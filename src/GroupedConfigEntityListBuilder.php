@@ -31,7 +31,7 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
   protected function loadGrouped() {
     $entities = array();
     foreach ($this->load() as $id => $entity) {
-      $entities[$this->getGrouping($entity)][$id] = $entity;
+      $entities[$this->getEntityGroup($entity)][$id] = $entity;
     }
     return $entities;
   }
@@ -45,7 +45,7 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
    * @return
    *  A value with which to group this entity.
    */
-  abstract protected function getGrouping($entity);
+  abstract protected function getEntityGroup($entity);
 
   /**
    * Gets the list of groupings to show in the entity list.

@@ -45,7 +45,7 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
     );
   }
   
-  protected function getGrouping($entity) {
+  protected function getEntityGroup($entity) {
     return 'foo';
   }
   
