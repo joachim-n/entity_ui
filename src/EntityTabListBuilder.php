@@ -4,6 +4,9 @@ namespace Drupal\entity_ui;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a listing of Entity tab entities.
@@ -14,7 +17,7 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
   
   
   /**
-   * Constructs a new EntityDisplayModeListBuilder object.
+   * Constructs a new EntityTabListBuilder object.
    *
    * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
    *   The entity type definition.
@@ -40,6 +43,10 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
       $entity_manager->getDefinitions()
     );
   }
+  
+  protected function getGrouping($entity) {
+    return 'foo';
+  }
 
   /**
    * {@inheritdoc}
@@ -58,6 +65,12 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
     $row['id'] = $entity->id();
     // You probably want a few more properties here...
     return $row + parent::buildRow($entity);
+  }
+  
+  protected function getGroupedAddURL($grouping) {
+    return Url::fromRoute('entity.entity_view_mode.add_form', [
+      'entity_type_id' => $entity_type,
+    ]);
   }
 
 }

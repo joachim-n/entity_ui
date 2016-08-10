@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Defines a class to build a listing of TODO.
  */
-class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
+abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
 
   /**
    * All entity types.
@@ -22,33 +22,44 @@ class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
   protected $entityTypes;
 
   /**
-   * {@inheritdoc}
+   * Load all the entities and group them by a property.
+   *
+   * @return
+   *  An array grouped by some property of the entities. Each key is a grouping
+   *  value, and each value is a further array of entities keyed by ID.
    */
-  public function load() {
+  protected function loadGrouped() {
     $entities = array();
-    foreach (parent::load() as $entity) {
-      $entities[$entity->getTargetType()][] = $entity;
+    foreach ($this->load() as $id => $entity) {
+      $entities[$this->getGrouping($entity)][$id] = $entity;
     }
     return $entities;
   }
+
+  /**
+   * Gets the entity property to use to group an entity.
+   *
+   * @param $entity
+   *  The entity to get the property for.
+   *
+   * @return
+   *  A value with which to group this entity.
+   */
+  abstract protected function getGrouping($entity);
 
   /**
    * {@inheritdoc}
    */
   public function render() {
     $build = array();
-    foreach ($this->load() as $entity_type => $entities) {
-      if (!isset($this->entityTypes[$entity_type])) {
-        continue;
-      }
-
+    foreach ($this->loadGrouped() as $grouping => $entities) {
       // Filter entities.
-      if (!$this->isValidEntity($entity_type)) {
+      if (!$this->isValidGrouping($grouping)) {
         continue;
       }
 
       $table = array(
-        '#prefix' => '<h2>' . $this->entityTypes[$entity_type]->getLabel() . '</h2>',
+        '#prefix' => '<h2>' . $this->getGroupingLabel($grouping) . '</h2>',
         '#type' => 'table',
         '#header' => $this->buildHeader(),
         '#rows' => array(),
@@ -60,37 +71,59 @@ class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
       }
 
       // Move content at the top.
+      /*
+      // TODO!
       if ($entity_type == 'node') {
         $table['#weight'] = -10;
       }
+      */
 
-      $short_type = str_replace(array('entity_', '_mode'), '', $this->entityTypeId);
       $table['#rows']['_add_new'][] = array(
         'data' => array(
           '#type' => 'link',
-          '#url' => Url::fromRoute($short_type == 'view' ? 'entity.entity_view_mode.add_form' : 'entity.entity_form_mode.add_form', ['entity_type_id' => $entity_type]),
-          '#title' => $this->t('Add new %label @entity-type', array('%label' => $this->entityTypes[$entity_type]->getLabel(), '@entity-type' => $this->entityType->getLowercaseLabel())),
+          '#url' => $this->getGroupedAddURL($grouping),
+          '#title' => $this->t('Add new %grouping @entity-type', array(
+            '%grouping' => $this->getGroupingLabel($grouping),
+            '@entity-type' => $this->entityType->getLowercaseLabel(),
+          )),
         ),
         'colspan' => count($table['#header']),
       );
-      $build[$entity_type] = $table;
+      $build[$grouping] = $table;
     }
     return $build;
   }
 
   /**
-   * Filters entities based on their view builder handlers.
+   * Filters grouping values.
    *
-   * @param $entity_type
-   *   The entity type of the entity that needs to be validated.
+   * @param $grouping
+   *   A grouping value. This is the same as the values returned by
+   *   getGrouping().
    *
    * @return bool
-   *   TRUE if the entity has the correct view builder handler, FALSE if the
-   *   entity doesn't have the correct view builder handler.
+   *   TRUE if the grouping is valid, and should be included in the UI, FALSE if
+   *   the grouping should not be shown.
    */
-  protected function isValidEntity($entity_type) {
-    return $this->entityTypes[$entity_type]->get('field_ui_base_route') && $this->entityTypes[$entity_type]->hasViewBuilderClass();
+  protected function isValidGrouping($grouping) {
+    return TRUE;
   }
+
+  /**
+   * Gets the human-readable label for a grouping.
+   *
+   * @param string $grouping
+   *   A grouping value. This is the same as the values returned by
+   *   getGrouping().
+   *
+   * @return string
+   *   The label for the grouping.
+   */
+  protected function getGroupingLabel($grouping) {
+    return ucfirst($grouping);
+  }
+  
+  abstract protected function getGroupedAddURL($grouping);
 
 }
 
