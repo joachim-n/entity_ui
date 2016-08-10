@@ -49,7 +49,7 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
    * {@inheritdoc}
    */
   protected function getEntityGroup($entity) {
-    return 'foo';
+    return $entity->targetEntityType;
   }
   
   /**
