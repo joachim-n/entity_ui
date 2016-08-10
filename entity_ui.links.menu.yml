@@ -1,6 +1,6 @@
 # Entity tab menu items definition
 entity.entity_tab.collection:
-  title: 'Entity tab'
+  title: 'Entity tabs'
   route_name: entity.entity_tab.collection
   description: 'List Entity tab (bundles)'
   parent: system.admin_structure
