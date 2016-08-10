@@ -36,7 +36,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/entity_ui/entity_tab/{entity_tab}",
- *     "add-form" = "/admin/structure/entity_ui/entity_tab/add",
+ *     "add-form" = "/admin/structure/entity_ui/entity_tab/add/{entity_type_id}",
  *     "edit-form" = "/admin/structure/entity_ui/entity_tab/{entity_tab}/edit",
  *     "delete-form" = "/admin/structure/entity_ui/entity_tab/{entity_tab}/delete",
  *     "collection" = "/admin/structure/entity_ui/entity_tab"
