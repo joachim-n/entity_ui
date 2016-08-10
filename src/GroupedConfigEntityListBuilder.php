@@ -15,13 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
 
   /**
-   * All entity types.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeInterface[]
-   */
-  protected $entityTypes;
-
-  /**
    * Load all the entities and group them by a property.
    *
    * @return
