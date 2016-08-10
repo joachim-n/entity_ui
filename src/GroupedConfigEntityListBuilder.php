@@ -99,20 +99,6 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
     return $build;
   }
 
-  /**
-   * Gets the human-readable label for a grouping.
-   *
-   * @param string $grouping
-   *   A grouping value. This is the same as the values returned by
-   *   getGrouping().
-   *
-   * @return string
-   *   The label for the grouping.
-   */
-  protected function getGroupingLabel($grouping) {
-    return ucfirst($grouping);
-  }
-
   abstract protected function getGroupedAddURL($grouping);
 
 }
