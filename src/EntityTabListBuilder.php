@@ -10,7 +10,36 @@ use Drupal\Core\Entity\EntityInterface;
  
  TODO: Crib from EntityDisplayModeListBuilder
  */
-class EntityTabListBuilder extends ConfigEntityListBuilder {
+class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
+  
+  
+  /**
+   * Constructs a new EntityDisplayModeListBuilder object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   The entity type definition.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The entity storage class.
+   * @param \Drupal\Core\Entity\EntityTypeInterface[] $entity_types
+   *   List of all entity types.
+   */
+  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, array $entity_types) {
+    parent::__construct($entity_type, $storage);
+
+    $this->entityTypes = $entity_types;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+    $entity_manager = $container->get('entity.manager');
+    return new static(
+      $entity_type,
+      $entity_manager->getStorage($entity_type->id()),
+      $entity_manager->getDefinitions()
+    );
+  }
 
   /**
    * {@inheritdoc}
