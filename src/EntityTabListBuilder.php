@@ -45,10 +45,16 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
     );
   }
   
+  /**
+   * {@inheritdoc}
+   */
   protected function getEntityGroup($entity) {
     return 'foo';
   }
   
+  /**
+   * {@inheritdoc}
+   */
   protected function getGroups() {
     $groups = [];
     foreach ($this->entityTypes as $entity_type_id => $entity_type) {
@@ -78,6 +84,9 @@ class EntityTabListBuilder extends GroupedConfigEntityListBuilder {
     return $row + parent::buildRow($entity);
   }
   
+  /**
+   * {@inheritdoc}
+   */
   protected function getGroupedAddURL($grouping) {
     return Url::fromRoute('entity.entity_view_mode.add_form', [
       'entity_type_id' => $grouping,
