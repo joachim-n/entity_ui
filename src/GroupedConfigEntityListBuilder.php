@@ -63,13 +63,6 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
         $entities = [];
       }
 
-
-      // Filter entities.
-      // TODO? REMOVE?
-      if (!$this->isValidGrouping($grouping)) {
-        continue;
-      }
-
       $table = array(
         '#prefix' => '<h2>' . $grouping_label . '</h2>',
         '#type' => 'table',
@@ -104,21 +97,6 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
       $build[$grouping] = $table;
     }
     return $build;
-  }
-
-  /**
-   * Filters grouping values.
-   *
-   * @param $grouping
-   *   A grouping value. This is the same as the values returned by
-   *   getGrouping().
-   *
-   * @return bool
-   *   TRUE if the grouping is valid, and should be included in the UI, FALSE if
-   *   the grouping should not be shown.
-   */
-  protected function isValidGrouping($grouping) {
-    return TRUE;
   }
 
   /**
