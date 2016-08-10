@@ -85,6 +85,7 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
       }
       */
 
+      // Add a row to add a new entity within this group.
       $table['#rows']['_add_new'][] = array(
         'data' => array(
           '#type' => 'link',
@@ -101,6 +102,15 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
     return $build;
   }
 
+  /**
+   * Gets the URL to add a new entity in the given group.
+   *
+   * @param $grouping
+   *  The group to make the URL for.
+   *
+   * @return \Drupal\Core\Url
+   *  A URL object for the link to add a new entity in the given group.
+   */
   abstract protected function getGroupedAddURL($grouping);
 
 }
