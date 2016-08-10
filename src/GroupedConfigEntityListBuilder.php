@@ -47,6 +47,15 @@ abstract class GroupedConfigEntityListBuilder extends ConfigEntityListBuilder {
    */
   abstract protected function getGrouping($entity);
 
+  /**
+   * Gets the list of groupings to show in the entity list.
+   *
+   * All of these will be shown, even if they have no entities.
+   *
+   * @return array
+   *  An array of groups, whose keys are the values that are obtained for each
+   *  entity by getEntityGroup(), and whose values are the human-readable labels.
+   */
   abstract protected function getGroups();
 
   /**
