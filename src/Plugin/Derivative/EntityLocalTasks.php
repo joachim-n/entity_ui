@@ -5,6 +5,7 @@ namespace Drupal\entity_ui\Plugin\Derivative;
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,13 +21,23 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
   protected $entityTypeManager;
 
   /**
+   * The entity query object for entity tabs.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryInterface
+   */
+  protected $tabQuery;
+
+  /**
    * Creates an SelectionBase object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
+   * @param \Drupal\Core\Entity\Query\QueryInterface $tab_query
+   *   The entity query object for entity tab entities.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryInterface $tab_query) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->tabQuery = $tab_query;
   }
 
   /**
@@ -34,7 +45,8 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('entity.query')->get('entity_tab')
     );
   }
 
