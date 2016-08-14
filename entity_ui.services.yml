@@ -1,0 +1,4 @@
+services:
+  plugin.manager.entity_tab_content.processor:
+    class: Drupal\entity_ui\Plugin\EntityTabContentManager
+    parent: default_plugin_manager
