@@ -13,13 +13,6 @@ entity_ui.entity_tab.*.*:
     targetEntityType:
       type: string
       label: 'Target entity type'
-    target_bundles:
-      type: sequence
-      label: 'types'
-      nullable: true
-      sequence:
-        type: string
-        label: 'Type'
     verb:
       type: string
       label: 'Permission verb'

@@ -77,23 +77,6 @@ class EntityTabForm extends EntityForm {
       '#disabled' => !$entity_tab->isNew(),
     ];
 
-    // TODO: inject.
-    $entity_bundle_info = \Drupal::service('entity_type.bundle.info');
-    $bundles = $entity_bundle_info->getBundleInfo($this->targetEntityTypeId);
-    $bundle_options = [];
-    foreach ($bundles as $bundle_name => $bundle_info) {
-      $bundle_options[$bundle_name] = $bundle_info['label'];
-    }
-    natsort($bundle_options);
-
-    $form['target_bundles'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Bundles'),
-      '#description' => $this->t("The bundles of the target entity type on which this tab appears. Leave empty to show on all bundles."),
-      '#options' => $bundle_options,
-      '#default_value' => (array) $entity_tab->getTargetBundles(),
-    ];
-
     // TODO:
     // verb
     // weight

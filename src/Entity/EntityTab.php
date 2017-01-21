@@ -58,19 +58,5 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
    * @var string
    */
   protected $label;
-  
-  /**
-   * A TODO.
-   *
-   * @var string
-   */
-  protected $target_bundles;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getTargetBundles() {
-    return $this->target_bundles;
-  }
 
 }
