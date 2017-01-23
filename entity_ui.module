@@ -11,6 +11,7 @@
 function entity_ui_entity_type_alter(array &$entity_types) {
   foreach ($entity_types as $type_name => $type) {
     
+    // Set up a link template for each tab.
     foreach (entity_ui_get_ops() as $operation) {
       // TODO: add a prefix to template name to prevent any clashes?
       $type->setLinkTemplate($operation, $type->getLinkTemplate('canonical') . '/' . $operation);      
