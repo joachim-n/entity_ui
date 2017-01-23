@@ -17,7 +17,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     plural = "@count Entity tabs",
  *   ),
  *   handlers = {
- *     "list_builder" = "Drupal\entity_ui\EntityTabListBuilder",
+ *     "list_builder" = "Drupal\entity_ui\EntityHandler\EntityTabListBuilder",
  *     "form" = {
  *       "add" = "Drupal\entity_ui\Form\EntityTabForm",
  *       "edit" = "Drupal\entity_ui\Form\EntityTabForm",
@@ -39,7 +39,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "add-form" = "/admin/structure/entity_ui/entity_tab/add/{entity_type_id}",
  *     "edit-form" = "/admin/structure/entity_ui/entity_tab/{entity_tab}/edit",
  *     "delete-form" = "/admin/structure/entity_ui/entity_tab/{entity_tab}/delete",
- *     "collection" = "/admin/structure/entity_ui/entity_tab"
+ *     "Xcollection" = "/admin/structure/entity_ui/entity_tab"
  *   }
  * )
  */
