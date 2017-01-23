@@ -1,4 +1,4 @@
-name: 'Entity UI'
+name: 'Entity UI Builder'
 type: module
-description: 'TODO: Description of module'
+description: 'Allows creation of UIs for entities.'
 core: 8.x
