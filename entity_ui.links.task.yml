@@ -1,3 +1,7 @@
 entity_ui.local_tasks:
   deriver: 'Drupal\entity_ui\Plugin\Derivative\EntityLocalTasks'
   weight: 100
+
+entity_ui.entity_tabs.local_tasks:
+  deriver: 'Drupal\entity_ui\Plugin\Derivative\EntityTabsAdminLocalTasks'
+  weight: 100
