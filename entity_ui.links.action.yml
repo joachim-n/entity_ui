@@ -1,3 +1,8 @@
+entity_ui.entity_tabs.local_actions:
+  deriver: 'Drupal\entity_ui\Plugin\Derivative\EntityTabsAdminLocalActions'
+  weight: 100
+
+# kill
 entity.entity_tab.add_form:
   route_name: 'entity.entity_tab.add_form'
   title: 'Add Entity tab'
