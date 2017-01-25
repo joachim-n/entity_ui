@@ -46,9 +46,9 @@ class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverI
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $entity_types = $this->entityTypeManager->getDefinitions();
-    
+
     foreach ($entity_types as $target_entity_type_id => $target_entity_type) {
-      // 
+      //
       if ($bundle_entity_type_id = $target_entity_type->getBundleEntityType()) {
         $bundle_entity_type = $entity_types[$bundle_entity_type_id];
         if ($bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection')) {
@@ -61,8 +61,8 @@ class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverI
           // be the route name!
           $task['base_route'] = "entity.{$bundle_entity_type_id}.collection";
 
-          $this->derivatives[$task['route_name']] = $task;     
-          
+          $this->derivatives[$task['route_name']] = $task;
+
           // Add a tab the Bundle entity collection route.
           // TODO: check that there isn't one already!
           // $tasks = \Drupal::service('plugin.manager.menu.local_task')->getLocalTasksForRoute($route_name);
@@ -71,7 +71,7 @@ class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverI
           $task['route_name'] = "entity.{$bundle_entity_type_id}.collection";
           $task['base_route'] = "entity.{$bundle_entity_type_id}.collection";
 
-          $this->derivatives['entity_ui.' . $task['route_name']] = $task;     
+          $this->derivatives['entity_ui.' . $task['route_name']] = $task;
         }
       }
     }
