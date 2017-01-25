@@ -9,7 +9,7 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines dynamic local tasks. TODO
+ * Defines Entity UI tabs on target entities.
  */
 class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface {
 
