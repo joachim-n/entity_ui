@@ -76,6 +76,8 @@ class AdminRouteProvider extends AdminHtmlRouteProvider {
               '_entity_list' => $entity_type->id(),
               '_title' => '@label tabs',
               '_title_arguments' => ['@label' => $target_entity_type->getLabel()],
+            ])
+            ->addOptions([
               '_target_entity_type_id' => $target_entity_type_id,
             ])
             ->setRequirement('_permission', $admin_permission);
