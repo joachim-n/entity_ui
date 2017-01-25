@@ -63,6 +63,10 @@ class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverI
 
           $this->derivatives[$task['route_name']] = $task;
 
+          /*
+          // Does not appear to be needed in many cases -- core entities add
+          // their own pointless singleton tab titled 'List'.
+
           // Add a tab the Bundle entity collection route.
           // TODO: check that there isn't one already!
           // $tasks = \Drupal::service('plugin.manager.menu.local_task')->getLocalTasksForRoute($route_name);
@@ -72,6 +76,7 @@ class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverI
           $task['base_route'] = "entity.{$bundle_entity_type_id}.collection";
 
           $this->derivatives['entity_ui.' . $task['route_name']] = $task;
+          */
         }
       }
     }
