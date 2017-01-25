@@ -43,6 +43,15 @@ class AdminRouteProvider extends AdminHtmlRouteProvider {
     return $collection;
   }
 
+  /**
+   * Get the routes for the Entity Tab collections, one for each target type.
+   *
+   * @param EntityTypeInterface $entity_type
+   *  The entity type this route provider is for.
+   *
+   * @return
+   *  An array of routes, keyed by target entity type ID.
+   */
   protected function getPerEntityTypeCollectionRoutes(EntityTypeInterface $entity_type) {
     $routes = [];
 
