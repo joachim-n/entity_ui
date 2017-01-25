@@ -6,6 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,6 +15,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides a listing of Entity tab entities for a single target entity type.
  */
 class EntityTabListBuilder extends ConfigEntityListBuilder {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * The currently active route match object.
@@ -34,12 +42,16 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
    *   The entity type definition.
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   The entity storage class.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
    *   The currently active route match object.
    */
-  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, RouteMatchInterface $current_route_match) {
+  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage,
+      EntityTypeManagerInterface $entity_type_manager, RouteMatchInterface $current_route_match) {
     parent::__construct($entity_type, $storage);
 
+    $this->entityTypeManager = $entity_type_manager;
     $this->currentRouteMatch = $current_route_match;
 
     $this->target_entity_type_id = $current_route_match->getRouteObject()->getOption('_target_entity_type_id');
@@ -52,6 +64,7 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
     return new static(
       $entity_type,
       $container->get('entity.manager')->getStorage($entity_type->id()),
+      $container->get('entity_type.manager'),
       $container->get('current_route_match')
     );
   }
@@ -76,7 +89,7 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
     // Tweak the empty text.
     $build['table']['#empty'] = $this->t('There is no @label for @target_type_label yet.', [
       '@label' => $this->entityType->getLabel(),
-      '@target_type_label' => $this->target_entity_type_id,
+      '@target_type_label' => $this->entityTypeManager->getDefinition($this->target_entity_type_id)->getLabel(),
     ]);
 
     return $build;
