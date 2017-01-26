@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_ui\Plugin;
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Plugin\PluginInspectionInterface;
 
 /**
@@ -9,7 +10,17 @@ use Drupal\Component\Plugin\PluginInspectionInterface;
  */
 interface EntityTabContentInterface extends PluginInspectionInterface {
 
-
-  // Add get/set methods for your plugin type here.
+  /**
+   * Provides a form array for the TODO plugin's settings form.
+   *
+   * @param array $form
+   *   The form array.
+   * @param FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array
+   *   The modified form array.
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state);
 
 }
