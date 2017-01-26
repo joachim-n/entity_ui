@@ -13,6 +13,12 @@ entity_ui.entity_tab.*.*:
     targetEntityType:
       type: string
       label: 'Target entity type'
+    content_plugin:
+      type: string
+      label: 'ID of the Entity Tab Content plugin'
+    content_config:
+      type: mapping
+      label: 'Content configuration'
     verb:
       type: string
       label: 'Permission verb'
