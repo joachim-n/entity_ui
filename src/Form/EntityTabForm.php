@@ -4,11 +4,34 @@ namespace Drupal\entity_ui\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\entity_ui\Plugin\EntityTabContentManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form for editing and creating entity tab entities.
  */
 class EntityTabForm extends EntityForm {
+
+  protected $entityTabContentPluginManager;
+
+  /**
+   * Constructs a new EntityTabForm.
+   *
+   * @param \Drupal\entity_ui\Plugin\EntityTabContentManager
+   *   The entity tab plugin manager.
+   */
+  public function __construct(EntityTabContentManager $entity_tab_content_manager) {
+    $this->entityTabContentPluginManager = $entity_tab_content_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('plugin.manager.entity_tab_content.processor')
+    );
+  }
 
   /**
    * The entity type for which the entity tab is being created.
@@ -30,19 +53,29 @@ class EntityTabForm extends EntityForm {
 
   /**
    * {@inheritdoc}
-   */
+   */ // change var name! TARGET
   public function buildForm(array $form, FormStateInterface $form_state, $entity_type_id = NULL) {
+    $form = parent::buildForm($form, $form_state);
+
+    // EDIT FORM ONLY.
+    if (empty($entity_type_id)) {
+     // TODO! $entity_type_id = get it out of the entity!
+    }
+    else {
+      $this->targetEntityTypeId = $entity_type_id;
+
+      $target_entity_type = $this->entityManager->getDefinition($this->targetEntityTypeId);
+      $form['#title'] = $this->t('Add new %label @entity-type', array(
+        '%label' => $target_entity_type->getLabel(),
+        '@entity-type' => $this->entityType->getLowercaseLabel(),
+      ));
+    }
+
     // ADD FORM ONLY TODO!
 
-    $this->targetEntityTypeId = $entity_type_id;
-    $form = parent::buildForm($form, $form_state);
     // Change replace_pattern to avoid undesired dots.
     //$form['id']['#machine_name']['replace_pattern'] = '[^a-z0-9_]+';
-    $definition = $this->entityManager->getDefinition($this->targetEntityTypeId);
-    $form['#title'] = $this->t('Add new %label @entity-type', array(
-      '%label' => $definition->getLabel(),
-      '@entity-type' => $this->entityType->getLowercaseLabel(),
-    ));
+
     return $form;
   }
 
@@ -54,11 +87,10 @@ class EntityTabForm extends EntityForm {
 
     $entity_tab = $this->entity;
     dsm($entity_tab);
-    
+
     // Add only:
     $entity_tab->targetEntityType = $this->targetEntityTypeId;
-    
-    
+
     $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
@@ -71,17 +103,110 @@ class EntityTabForm extends EntityForm {
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $entity_tab->id(),
+      '#field_prefix' => $this->entity->isNew() ? $this->targetEntityTypeId . '.' : '',
       '#machine_name' => [
-        'exists' => '\Drupal\entity_ui\Entity\EntityTab::load',
+        'exists' => [$this, 'exists'],
+        'replace_pattern' => '[^a-z0-9_.]+',
       ],
       '#disabled' => !$entity_tab->isNew(),
     ];
 
-    // TODO:
-    // verb
-    // weight
+    $form['verb'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Permission verb'),
+      '#maxlength' => 16,
+      '#size' => 16,
+      '#default_value' => $entity_tab->get('verb'),
+      '#description' => $this->t("TODO."),
+      '#required' => TRUE,
+    ];
+
+    $form['content'] = [
+      '#type' => 'details',
+      '#open' => TRUE,
+      '#title' => $this->t('Content options'),
+      '#description' => $this->t('TODO  '),
+      '#tree' => FALSE,
+      '#prefix' => '<div id="content-settings-wrapper">',
+      '#suffix' => '</div>',
+    ];
+
+    $options = [];
+    foreach ($this->entityTabContentPluginManager->getDefinitions() as $plugin_id => $definition) {
+      $options[$plugin_id] = $definition['label'];
+    }
+    $form['content']['content_plugin'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Content'),
+      '#options' => $options,
+      '#default_value' => $entity_tab->get('content_plugin'),
+      '#description' => $this->t("The content provider for this tab."),
+      '#required' => TRUE,
+      '#ajax' => [
+        'callback' => '::updateSelectedPluginType',
+        'wrapper' => 'content-settings-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+      ],
+    ];
+
+    $form['content']['content_plugin_submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Update'),
+      '#submit' => ['::submitSelectPlugin'],
+      '#weight' => 20,
+      '#attributes' => ['class' => ['js-hide']],
+    ];
+
+    $form['content']['content_config'] = [
+      '#type' => 'container',
+      '#weight' => 21,
+    ];
+
+    $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->get('content_plugin'), []);
+    dsm($content_plugin);
+    $form['content']['content_config'] += $content_plugin->buildConfigurationForm([], $form_state);
+
 
     return $form;
+  }
+
+  /**
+   * Handles switching the configuration type selector.
+   */
+  public function updateSelectedPluginType($form, FormStateInterface $form_state) {
+    return $form['content'];
+  }
+
+  /**
+   * Handles submit call when sensor type is selected.
+   */
+  public function submitSelectPlugin(array $form, FormStateInterface $form_state) {
+    // Rebuild the entity using the form's new state.
+    $this->entity = $this->buildEntity($form, $form_state);
+    $form_state->setRebuild();
+  }
+
+  /**
+   * Determines if the entity tab already exists.
+   *
+   * Callback for the machine_name form element.
+   *
+   * @param string|int $entity_id
+   *   The entity ID.
+   * @param array $element
+   *   The form element.
+   *
+   * @return bool
+   *   TRUE if the entity tab exists, FALSE otherwise.
+   */
+  public function exists($entity_id, array $element) {
+    return FALSE;
+    // TODO
+    return (bool) $this->queryFactory
+      ->get($this->entity->getEntityTypeId())
+      ->condition('id', $element['#field_prefix'] . $entity_id)
+      ->execute();
   }
 
   /**
