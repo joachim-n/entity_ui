@@ -11,7 +11,6 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
  */
 class EntityTabContentManager extends DefaultPluginManager {
 
-
   /**
    * Constructor for EntityTabContentManager objects.
    *
