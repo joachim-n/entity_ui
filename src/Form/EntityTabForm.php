@@ -109,9 +109,6 @@ class EntityTabForm extends EntityForm {
     $entity_tab = $this->entity;
     dsm($entity_tab);
 
-    // Add only:
-    $entity_tab->targetEntityType = $this->targetEntityTypeId;
-
     $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
