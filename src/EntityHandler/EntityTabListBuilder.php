@@ -83,6 +83,27 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
+  public function buildHeader() {
+    $row['label'] = $this->t('Label');
+    $row['operations'] = $this->t('Operations');
+    return $row;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildRow(EntityInterface $entity) {
+    $row['label']['data'] = [
+      '#markup' => $entity->label(),
+    ];
+
+    $row['operations']['data'] = $this->buildOperations($entity);
+    return $row;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function render() {
     $build = parent::render();
 
