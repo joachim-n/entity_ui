@@ -121,7 +121,7 @@ class EntityTabForm extends EntityForm {
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $entity_tab->id(),
-      '#field_prefix' => $this->entity->isNew() ? $this->targetEntityTypeId . '.' : '',
+      '#field_prefix' => $entity_tab->isNew() ? $entity_tab->getTargetEntityTypeID() . '.' : '',
       '#machine_name' => [
         'exists' => [$this, 'exists'],
         'replace_pattern' => '[^a-z0-9_.]+',
