@@ -4,6 +4,7 @@ namespace Drupal\entity_ui\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\entity_ui\Plugin\EntityTabContentManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -49,6 +50,26 @@ class EntityTabForm extends EntityForm {
   protected function init(FormStateInterface $form_state) {
     parent::init($form_state);
     $this->entityType = $this->entityManager->getDefinition($this->entity->getEntityTypeId());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntityFromRouteMatch(RouteMatchInterface $route_match, $entity_type_id) {
+    if ($route_match->getRawParameter($entity_type_id) !== NULL) {
+      $entity = $route_match->getParameter($entity_type_id);
+    }
+    else {
+      $values = [];
+
+      // Get the target entity type from the route's parameter.
+      $target_entity_type_id = $route_match->getParameter('entity_type_id');
+      $values['targetEntityType'] = $target_entity_type_id;
+
+      $entity = $this->entityTypeManager->getStorage($entity_type_id)->create($values);
+    }
+
+    return $entity;
   }
 
   /**
