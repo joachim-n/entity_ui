@@ -5,6 +5,7 @@ namespace Drupal\entity_ui\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\entity_ui\Plugin\EntityTabContentManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -258,7 +259,10 @@ class EntityTabForm extends EntityForm {
           '%label' => $entity_tab->label(),
         ]));
     }
-    $form_state->setRedirectUrl($entity_tab->urlInfo('collection'));
+
+    // Redirect to the collection for the tab's target entity type.
+    $target_entity_type_id = $entity_tab->getTargetEntityTypeID();
+    $form_state->setRedirectUrl(Url::fromRoute("entity_ui.entity_tab.{$target_entity_type_id}.collection"));
   }
 
 }
