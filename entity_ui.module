@@ -35,12 +35,16 @@ function entity_ui_entity_type_build(array &$entity_types) {
   }
 }
 
+// TODO: move this to a service!
+// todo: EntityTypeInterface
+function entity_ui_get_tabs(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  // DAMN IT CIRCULAR!!!!!!!!!!! FUCK
 
-function entity_ui_get_ops() {
-  return [
-    'foobar',
-    'wibble',
-  ];
+  $query = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->getQuery();
+  $query->condition('targetEntityType', $entity_type->id());
+  $ids = $query->execute();
+  $tabs = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->loadMultiple($ids);
+  return $tabs;
 }
 
 function entity_ui_output() {
