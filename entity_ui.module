@@ -11,13 +11,15 @@
 function entity_ui_entity_type_alter(array &$entity_types) {
   foreach ($entity_types as $type_name => $type) {
     
+    /*
     // Set up a link template for each tab.
-    foreach (entity_ui_get_ops() as $operation) {
+    // TODO: stop calling these operations!
+    foreach (entity_ui_get_tabs($type) as $tab_id => $entity_tab) {
       // TODO: add a prefix to template name to prevent any clashes?
-      $type->setLinkTemplate($operation, $type->getLinkTemplate('canonical') . '/' . $operation);      
+      $type->setLinkTemplate($tab_id, $type->getLinkTemplate('canonical') . '/' . $tab_id);
     }
-    
-    
+    */
+
     // @todo Core forgot to add a direct way to manipulate route_provider, so
     // we have to do it the sloppy way for now.
     $providers = $type->getRouteProviderClasses() ?: [];
