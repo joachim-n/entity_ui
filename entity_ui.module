@@ -10,6 +10,12 @@
  */
 function entity_ui_entity_type_build(array &$entity_types) {
   foreach ($entity_types as $entity_type_id => $type) {
+    if ($type->getGroup() != 'content') {
+      continue;
+    }
+    // TODO: filter out the entity types we don't work with!
+    // joachim: 1!!!
+
     /*
     // Set up a link template for each tab.
     // TODO: stop calling these operations!
