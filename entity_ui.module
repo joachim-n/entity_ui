@@ -46,9 +46,3 @@ function entity_ui_get_tabs(\Drupal\Core\Entity\EntityTypeInterface $entity_type
   $tabs = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->loadMultiple($ids);
   return $tabs;
 }
-
-function entity_ui_output() {
-  return [
-    '#markup' => 'op!',
-  ];
-}
