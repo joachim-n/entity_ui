@@ -2,7 +2,7 @@
 
 namespace Drupal\entity_ui\EntityHandler;
 
-use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
+use Drupal\Core\Config\Entity\DraggableListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides a listing of Entity tab entities for a single target entity type.
  */
-class EntityTabListBuilder extends ConfigEntityListBuilder {
+class EntityTabListBuilder extends DraggableListBuilder {
 
   /**
    * The entity type manager service.
@@ -85,6 +85,13 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
+  public function getFormId() {
+    return 'entity_ui_collection';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function getEntityIds() {
     // No need to sort; load() does that.
     $query = $this->storage->getQuery();
@@ -97,38 +104,57 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $row['label'] = $this->t('Entity tab name');
-    $row['plugin'] = $this->t('Content provider');
-    $row['operations'] = $this->t('Operations');
-    return $row;
+    $header = [];
+
+    $header['label'] = $this->t('Entity tab name');
+    $header['plugin_label'] = $this->t('Content provider');
+    $header['operations'] = $this->t('Operations');
+
+    return $header + parent::buildHeader();
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    $row['label']['data'] = [
-      '#markup' => $entity->label(),
-    ];
+    $row = [];
+
+    // Parent class tries to be too helpful and stupidly attempts to turn this
+    // cell into a markup element...
+    $row['label'] = $entity->label();
 
     $plugin_definition = $this->entityTabContentPluginManager->getDefinition($entity->getPluginID());
-    $row['plugin'] = $plugin_definition['label'];
+    $row['plugin_label'] = [
+      '#markup' => $plugin_definition['label'],
+    ];
 
     $row['operations']['data'] = $this->buildOperations($entity);
-    return $row;
+
+    return $row + parent::buildRow($entity);
   }
 
   /**
    * {@inheritdoc}
    */
   public function render() {
+    /*
+    TODO: examine the tasks on the target entity's canonical route, to see
+    what the hardcoded tasks are and work the weights around them.
+
+
+    */
+
+
     $build = parent::render();
 
+    /*
     // Tweak the empty text.
     $build['table']['#empty'] = $this->t('There is no @label for @target_type_label yet.', [
       '@label' => $this->entityType->getLabel(),
       '@target_type_label' => $this->entityTypeManager->getDefinition($this->target_entity_type_id)->getLabel(),
     ]);
+    */
+
 
     return $build;
 
