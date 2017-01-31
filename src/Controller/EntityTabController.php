@@ -9,7 +9,7 @@ use Drupal\entity_ui\Plugin\EntityTabContentManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides TODO.
+ * Controller for the routes defined by entity tab entities.
  */
 class EntityTabController implements ContainerInjectionInterface {
 
@@ -35,7 +35,7 @@ class EntityTabController implements ContainerInjectionInterface {
   protected $entityTabContentPluginManager;
 
   /**
-   * Constructs a new TODO object.
+   * Constructs a new EntityTabController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
