@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * TODO
+ * Provides ROUTEStabs that the EntityTab entities define for content entities.
  */
 class TabRouteProvider implements EntityRouteProviderInterface {
   // EntityHandlerInterface if need DI.
-  
+
   /**
    * {@inheritdoc}
    */
