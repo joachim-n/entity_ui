@@ -31,7 +31,7 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
    * Creates an SelectionBase object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager.
+   *   The entity type manager.
    * @param \Drupal\Core\Entity\Query\QueryInterface $tab_query
    *   The entity query object for entity tab entities.
    */
