@@ -28,8 +28,9 @@ class TabRouteProvider implements EntityRouteProviderInterface {
       $route = new Route($path);
       $route
         ->setDefaults([
-          '_controller' => "entity_ui_output",
-          '_title' => $operation, // TODO
+          '_controller' => '\Drupal\entity_ui\Controller\EntityTabController::content',
+          '_title_callback' => '\Drupal\entity_ui\Controller\EntityTabController::title',
+          '_content_plugin' => $tab_id,
         ])
         ->setRequirements([
           '_permission' => 'access content', // TODO
