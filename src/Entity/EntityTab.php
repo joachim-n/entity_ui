@@ -95,4 +95,8 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
     return $path;
   }
 
+  public function getPluginID() {
+    return $this->content_plugin;
+  }
+
 }
