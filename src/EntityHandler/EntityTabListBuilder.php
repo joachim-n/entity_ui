@@ -97,7 +97,8 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $row['label'] = $this->t('Label');
+    $row['label'] = $this->t('Entity tab name');
+    $row['plugin'] = $this->t('Content provider');
     $row['operations'] = $this->t('Operations');
     return $row;
   }
@@ -109,6 +110,9 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
     $row['label']['data'] = [
       '#markup' => $entity->label(),
     ];
+
+    $plugin_definition = $this->entityTabContentPluginManager->getDefinition($entity->getPluginID());
+    $row['plugin'] = $plugin_definition['label'];
 
     $row['operations']['data'] = $this->buildOperations($entity);
     return $row;
