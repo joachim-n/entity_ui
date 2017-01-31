@@ -14,6 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class EntityTabForm extends EntityForm {
 
+  /**
+   * The Entity Tab content plugin manager
+   *
+   * @var \Drupal\entity_ui\Plugin\EntityTabContentManager
+   */
   protected $entityTabContentPluginManager;
 
   /**
