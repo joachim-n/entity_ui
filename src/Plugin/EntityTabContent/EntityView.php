@@ -25,4 +25,12 @@ class EntityView extends EntityTabContentBase implements EntityTabContentInterfa
     return $form;
   }
 
+  public function buildContent() {
+    $build['build'] = [
+      '#markup' => 'view!',
+    ];
+
+    return $build;
+  }
+
 }
