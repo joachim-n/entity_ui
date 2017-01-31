@@ -55,13 +55,22 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     foreach ($this->entityTypeManager->getDefinitions() as $entity_type_id => $entity_type_definition) {
-      foreach (entity_ui_get_ops() as $operation) {
+      // TODO: ! only bother with target entity types we support!
+
+
+      foreach (entity_ui_get_tabs($entity_type_definition) as $tab_id => $entity_tab) {
         $task = $base_plugin_definition;
-        $task['title'] = $operation;
-        $task['route_name'] = "entity.{$entity_type_id}.{$operation}";
+
+        $path_component = $entity_tab->getPathComponent();
+
+        $task['title'] = $path_component;
+        $task['route_name'] = "entity.{$entity_type_id}.{$path_component}";
         $task['base_route'] = "entity.{$entity_type_id}.canonical";
 
-        $this->derivatives["entity.{$entity_type_id}.{$operation}"] = $task;
+        // TODO: set weights.
+
+        // TODO; namespace with a prefix?
+        $this->derivatives["entity.{$entity_type_id}.{$path_component}"] = $task;
       }
     }
 
