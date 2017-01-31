@@ -32,7 +32,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
- *     "uuid" = "uuid"
+ *     "uuid" = "uuid",
+ *     "weight" = "weight",
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/entity_ui/entity_tab/{entity_tab}",
