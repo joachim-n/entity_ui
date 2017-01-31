@@ -138,37 +138,16 @@ class EntityTabListBuilder extends DraggableListBuilder {
   /**
    * {@inheritdoc}
    */
-  public function render() {
-    /*
-    TODO: examine the tasks on the target entity's canonical route, to see
-    what the hardcoded tasks are and work the weights around them.
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
 
-
-    */
-
-
-    $build = parent::render();
-
-    /*
     // Tweak the empty text.
-    $build['table']['#empty'] = $this->t('There is no @label for @target_type_label yet.', [
+    $form[$this->entitiesKey]['#empty'] = $this->t('There is no @label for @target_type_label entities yet.', [
       '@label' => $this->entityType->getLabel(),
       '@target_type_label' => $this->entityTypeManager->getDefinition($this->target_entity_type_id)->getLabel(),
     ]);
-    */
 
-
-    return $build;
-
-    /////////////
-    dsm($this->storage);
-    $route_match = \Drupal::service('current_route_match');
-    $route = $route_match->getRouteObject();
-
-    $target_entity_type = $route->getOption('_target_entity_type_id');
-    dsm($target_entity_type);
-    dsm("list builder!");
-    return [];
+    return $form;
   }
 
 }
