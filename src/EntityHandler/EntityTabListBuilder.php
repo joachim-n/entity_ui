@@ -63,6 +63,7 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
     parent::__construct($entity_type, $storage);
 
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityTabContentPluginManager = $entity_tab_content_manager;
     $this->currentRouteMatch = $current_route_match;
 
     $this->target_entity_type_id = $current_route_match->getRouteObject()->getOption('_target_entity_type_id');
