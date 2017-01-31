@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\entity_ui\Plugin\EntityTabContentManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,6 +23,13 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The Entity Tab content plugin manager
+   *
+   * @var \Drupal\entity_ui\Plugin\EntityTabContentManager
+   */
+  protected $entityTabContentPluginManager;
 
   /**
    * The currently active route match object.
@@ -44,11 +52,14 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
    *   The entity storage class.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\entity_ui\Plugin\EntityTabContentManager
+   *   The entity tab plugin manager.
    * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
    *   The currently active route match object.
    */
   public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage,
-      EntityTypeManagerInterface $entity_type_manager, RouteMatchInterface $current_route_match) {
+      EntityTypeManagerInterface $entity_type_manager, EntityTabContentManager $entity_tab_content_manager,
+      RouteMatchInterface $current_route_match) {
     parent::__construct($entity_type, $storage);
 
     $this->entityTypeManager = $entity_type_manager;
@@ -65,6 +76,7 @@ class EntityTabListBuilder extends ConfigEntityListBuilder {
       $entity_type,
       $container->get('entity.manager')->getStorage($entity_type->id()),
       $container->get('entity_type.manager'),
+      $container->get('plugin.manager.entity_tab_content.processor'),
       $container->get('current_route_match')
     );
   }
