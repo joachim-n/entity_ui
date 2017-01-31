@@ -52,31 +52,32 @@ class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverI
       if ($bundle_entity_type_id = $target_entity_type->getBundleEntityType()) {
         $bundle_entity_type = $entity_types[$bundle_entity_type_id];
         if ($bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection')) {
+          // Whoa!!! MASSIVE assumption! If the bundle entity type overrides
+          // or doesn't even use AdminHtmlRouteProvider, then this might not
+          // be the route name!
+          $bundle_collection_route_name = "entity.{$bundle_entity_type_id}.collection";
+
           // Tab for the Entity Tabs admin collection route.
           $task = $base_plugin_definition;
           $task['title'] = 'Entity tabs';
           $task['route_name'] = "entity_ui.entity_tab.{$target_entity_type_id}.collection";
-          // Whoa!!! MASSIVE assumption! If the bundle entity type overrides
-          // or doesn't even use AdminHtmlRouteProvider, then this might not
-          // be the route name!
-          $task['base_route'] = "entity.{$bundle_entity_type_id}.collection";
+          $task['base_route'] = $bundle_collection_route_name;
+          $task['weight'] = 20;
 
           $this->derivatives[$task['route_name']] = $task;
 
-          /*
-          // Does not appear to be needed in many cases -- core entities add
-          // their own pointless singleton tab titled 'List'.
+          // Add a default tab for the type collection, if there isn't one
+          // already.
+          $tasks = \Drupal::service('plugin.manager.menu.local_task')->getLocalTasksForRoute($bundle_collection_route_name);
+          if (empty($tasks[0])) {
+            $task = $base_plugin_definition;
+            $task['title'] = t('List'); // TODO get title from bundle collection route.
+            $task['route_name'] = $bundle_collection_route_name;
+            $task['base_route'] = $bundle_collection_route_name;
+            $task['weight'] = 0;
 
-          // Add a tab the Bundle entity collection route.
-          // TODO: check that there isn't one already!
-          // $tasks = \Drupal::service('plugin.manager.menu.local_task')->getLocalTasksForRoute($route_name);
-          $task = $base_plugin_definition;
-          $task['title'] = 'foo'; // TODO get title from route
-          $task['route_name'] = "entity.{$bundle_entity_type_id}.collection";
-          $task['base_route'] = "entity.{$bundle_entity_type_id}.collection";
-
-          $this->derivatives['entity_ui.' . $task['route_name']] = $task;
-          */
+            $this->derivatives['entity_ui.' . $bundle_collection_route_name] = $task;
+          }
         }
       }
     }
