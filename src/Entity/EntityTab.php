@@ -40,7 +40,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "add-form" = "/admin/structure/entity_ui/entity_tab/add/{entity_type_id}",
  *     "edit-form" = "/admin/structure/entity_ui/entity_tab/{entity_tab}/edit",
  *     "delete-form" = "/admin/structure/entity_ui/entity_tab/{entity_tab}/delete",
- *     "Xcollection" = "/admin/structure/entity_ui/entity_tab"
  *   }
  * )
  */
