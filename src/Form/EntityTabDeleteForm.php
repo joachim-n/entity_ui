@@ -22,7 +22,8 @@ class EntityTabDeleteForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.entity_tab.collection');
+    $target_entity_type_id = $this->entity->getTargetEntityTypeID();
+    return Url::fromRoute("entity_ui.entity_tab.{$target_entity_type_id}.collection");
   }
 
   /**
