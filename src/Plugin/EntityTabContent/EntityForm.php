@@ -13,7 +13,7 @@ use Drupal\entity_ui\Plugin\EntityTabContentInterface;
  * )
  */
 class EntityForm extends EntityTabContentBase implements EntityTabContentInterface {
-  
+
   /**
    * {@inheritdoc}
    */
@@ -21,7 +21,7 @@ class EntityForm extends EntityTabContentBase implements EntityTabContentInterfa
     $form['foo'] = [
       '#markup' => 'form!',
     ];
-    
+
     return $form;
   }
 
