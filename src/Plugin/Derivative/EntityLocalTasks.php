@@ -63,7 +63,7 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
 
         $path_component = $entity_tab->getPathComponent();
 
-        $task['title'] = $path_component;
+        $task['title'] = $entity_tab->getTabTitle();
         $task['route_name'] = "entity.{$entity_type_id}.{$path_component}";
         $task['base_route'] = "entity.{$entity_type_id}.canonical";
 
