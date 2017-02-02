@@ -117,4 +117,6 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
     return $this->content_plugin;
   }
 
+  // todo: config dependency on the plugin.
+
 }
