@@ -150,4 +150,15 @@ class EntityTabListBuilder extends DraggableListBuilder {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    parent::submitForm($form, $form_state);
+
+    // Tab weights have changed: clear local task caches.
+    // TODO: inject this service.
+    \Drupal::service('plugin.manager.menu.local_task')->clearCachedDefinitions();
+  }
+
 }
