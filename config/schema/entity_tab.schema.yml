@@ -5,11 +5,22 @@ entity_ui.entity_tab.*.*:
     id:
       type: string
       label: 'ID'
-    label:
-      type: label
-      label: 'The human-readable name of the view mode'
     uuid:
       type: string
+    label:
+      type: label
+      label: 'The human-readable name of the entity tab. Used in admin listings.'
+    path:
+      # TODO: better type?
+      type: label
+      label: 'The path component for the tab.'
+    tab_title:
+      type: label
+      label: 'The title of the tab on the target entity.'
+    page_title:
+      type: label
+      label: 'The page title of the tab page.'
+    # URGH CAMEL
     targetEntityType:
       type: string
       label: 'Target entity type'
