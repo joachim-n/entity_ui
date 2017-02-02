@@ -90,9 +90,27 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
    *  The path component that is appended to the target entity's canonical URL.
    */
   public function getPathComponent() {
-    // TODO: safer to store this as a separate piece of schema config!
-    list(, $path) = explode('.', $this->id());
-    return $path;
+    return $this->get('path');
+  }
+
+  /**
+   * Gets the path component for this tab.TODO
+   *
+   * @return string
+   *  The path component that is appended to the target entity's canonical URL.
+   */
+  public function getPageTitle() {
+    return $this->get('page_title');
+  }
+
+  /**
+   * Gets the path component for this tab.TODO
+   *
+   * @return string
+   *  The path component that is appended to the target entity's canonical URL.
+   */
+  public function getTabTitle() {
+    return $this->get('tab_title');
   }
 
   public function getPluginID() {
