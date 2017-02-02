@@ -135,6 +135,24 @@ class EntityTabForm extends EntityForm {
       '#disabled' => !$entity_tab->isNew(),
     ];
 
+    $form['tab_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tab title'),
+      '#maxlength' => 255,
+      '#default_value' => $entity_tab->get('tab_title'),
+      '#description' => $this->t("TODO label for the Entity tab."),
+      '#required' => TRUE,
+    ];
+
+    $form['page_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Page title'),
+      '#maxlength' => 255,
+      '#default_value' => $entity_tab->get('page_title'),
+      '#description' => $this->t("TODO label for the Entity tab."),
+      '#required' => TRUE,
+    ];
+
     $targetEntityTypeID = $entity_tab->getTargetEntityTypeID();
     $targetEntityType = $this->entityManager->getDefinition($targetEntityTypeID);
     $targetEntityTypeCanonicalURL = $targetEntityType->getLinkTemplate('canonical');
@@ -266,6 +284,10 @@ class EntityTabForm extends EntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     $entity_tab = $this->entity;
     $status = $entity_tab->save();
+
+    // TODO: a change in the path component requires a route rebuild.
+    // see how Views does it!!!
+    // TODO: change in tab title needs rediscovery of local tasks.
 
     switch ($status) {
       case SAVED_NEW:
