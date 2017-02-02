@@ -135,6 +135,21 @@ class EntityTabForm extends EntityForm {
       '#disabled' => !$entity_tab->isNew(),
     ];
 
+    $targetEntityTypeID = $entity_tab->getTargetEntityTypeID();
+    $targetEntityType = $this->entityManager->getDefinition($targetEntityTypeID);
+    $targetEntityTypeCanonicalURL = $targetEntityType->getLinkTemplate('canonical');
+    $example_url = str_replace("{{$targetEntityTypeID}}", 'ID', $targetEntityTypeCanonicalURL);
+    $form['path'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Path component'),
+      '#field_prefix' => $example_url . '/',
+      '#maxlength' => 16,
+      '#size' => 16,
+      '#default_value' => $entity_tab->get('path'),
+      '#description' => $this->t("The path component to append to the entity's canonical URL to form the URL for this tab."),
+      '#required' => TRUE,
+    ];
+
     $form['verb'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Permission verb'),
