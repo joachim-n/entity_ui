@@ -120,7 +120,7 @@ class EntityTabForm extends EntityForm {
       '#title' => $this->t('Label'),
       '#maxlength' => 255,
       '#default_value' => $entity_tab->label(),
-      '#description' => $this->t("Label for the Entity tab."),
+      '#description' => $this->t("Admin label for the Entity tab."),
       '#required' => TRUE,
     ];
 
