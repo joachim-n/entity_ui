@@ -20,8 +20,7 @@ entity_ui.entity_tab.*.*:
     page_title:
       type: label
       label: 'The page title of the tab page.'
-    # URGH CAMEL
-    targetEntityType:
+    target_entity_type:
       type: string
       label: 'Target entity type'
     content_plugin:

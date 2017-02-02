@@ -41,7 +41,7 @@ function entity_ui_get_tabs(\Drupal\Core\Entity\EntityTypeInterface $entity_type
   // DAMN IT CIRCULAR!!!!!!!!!!! FUCK
 
   $query = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->getQuery();
-  $query->condition('targetEntityType', $entity_type->id());
+  $query->condition('target_entity_type', $entity_type->id());
   $ids = $query->execute();
   $tabs = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->loadMultiple($ids);
   return $tabs;

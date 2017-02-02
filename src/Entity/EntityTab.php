@@ -64,7 +64,7 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
    *
    * @var string
    */
-  protected $targetEntityType;
+  protected $target_entity_type;
 
   /**
    * The ID of the Entity Tab Content plugin
@@ -80,7 +80,7 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
    *  The entity type ID that this entity tab is on.
    */
   public function getTargetEntityTypeID() {
-    return $this->targetEntityType;
+    return $this->target_entity_type;
   }
 
   /**

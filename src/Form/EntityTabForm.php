@@ -70,7 +70,7 @@ class EntityTabForm extends EntityForm {
 
       // Get the target entity type from the route's parameter.
       $target_entity_type_id = $route_match->getParameter('entity_type_id');
-      $values['targetEntityType'] = $target_entity_type_id;
+      $values['target_entity_type'] = $target_entity_type_id;
 
       $entity = $this->entityTypeManager->getStorage($entity_type_id)->create($values);
     }

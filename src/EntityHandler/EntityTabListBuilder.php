@@ -97,7 +97,7 @@ class EntityTabListBuilder extends DraggableListBuilder {
   protected function getEntityIds() {
     // No need to sort; load() does that.
     $query = $this->storage->getQuery();
-    $query->condition('targetEntityType', $this->target_entity_type_id);
+    $query->condition('target_entity_type', $this->target_entity_type_id);
 
     return $query->execute();
   }
