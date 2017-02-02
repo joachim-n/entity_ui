@@ -78,6 +78,12 @@ class EntityTabController implements ContainerInjectionInterface {
     return $content_plugin->buildContent();
   }
 
+  /**
+   * Title callback for the entity tab route.
+   *
+   * @return string
+   *  The page title.
+   */
   public function title() {
     $entity_tab_id = $this->currentRouteMatch->getRouteObject()->getDefault('_content_plugin');
     $entity_tab = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->load($entity_tab_id);
