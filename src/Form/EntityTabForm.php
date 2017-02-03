@@ -120,7 +120,7 @@ class EntityTabForm extends EntityForm {
       '#title' => $this->t('Label'),
       '#maxlength' => 255,
       '#default_value' => $entity_tab->label(),
-      '#description' => $this->t("Admin label for the Entity tab."),
+      '#description' => $this->t("The admin label for the Entity tab."),
       '#required' => TRUE,
     ];
 
@@ -140,7 +140,7 @@ class EntityTabForm extends EntityForm {
       '#title' => $this->t('Tab title'),
       '#maxlength' => 255,
       '#default_value' => $entity_tab->get('tab_title'),
-      '#description' => $this->t("TODO label for the Entity tab."),
+      '#description' => $this->t("The label for the tab on the target entity type."),
       '#required' => TRUE,
     ];
 
@@ -149,7 +149,7 @@ class EntityTabForm extends EntityForm {
       '#title' => $this->t('Page title'),
       '#maxlength' => 255,
       '#default_value' => $entity_tab->get('page_title'),
-      '#description' => $this->t("TODO label for the Entity tab."),
+      '#description' => $this->t("The page title to show when the entity tab is displayed."),
       '#required' => TRUE,
     ];
 
@@ -182,7 +182,7 @@ class EntityTabForm extends EntityForm {
       '#type' => 'details',
       '#open' => TRUE,
       '#title' => $this->t('Content options'),
-      '#description' => $this->t('TODO  '),
+      '#description' => $this->t('The output to show on this tab.'),
       '#tree' => FALSE,
       '#prefix' => '<div id="content-settings-wrapper">',
       '#suffix' => '</div>',
