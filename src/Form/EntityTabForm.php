@@ -4,6 +4,8 @@ namespace Drupal\entity_ui\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Menu\LocalTaskManagerInterface;
+use Drupal\Core\Routing\RouteBuilderInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\entity_ui\Plugin\EntityTabContentManager;
@@ -22,13 +24,31 @@ class EntityTabForm extends EntityForm {
   protected $entityTabContentPluginManager;
 
   /**
+   * The menu local task plugin manager.
+   *
+   * @var \Drupal\Core\Menu\LocalTaskManagerInterface
+   */
+  protected $menuLocalTaskPluginManager;
+
+  /**
+   * The router builder service.
+   *
+   * @var \Drupal\Core\Routing\RouteBuilderInterface
+   */
+  protected $routerBuilder;
+
+  /**
    * Constructs a new EntityTabForm.
    *
    * @param \Drupal\entity_ui\Plugin\EntityTabContentManager
    *   The entity tab plugin manager.
    */
-  public function __construct(EntityTabContentManager $entity_tab_content_manager) {
+  public function __construct(EntityTabContentManager $entity_tab_content_manager,
+      LocalTaskManagerInterface $plugin_manager_menu_local_task,
+      RouteBuilderInterface $router_builder) {
     $this->entityTabContentPluginManager = $entity_tab_content_manager;
+    $this->menuLocalTaskPluginManager = $plugin_manager_menu_local_task;
+    $this->routerBuilder = $router_builder;
   }
 
   /**
@@ -36,7 +56,9 @@ class EntityTabForm extends EntityForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.entity_tab_content.processor')
+      $container->get('plugin.manager.entity_tab_content.processor'),
+      $container->get('plugin.manager.menu.local_task'),
+      $container->get('router.builder')
     );
   }
 
@@ -277,21 +299,19 @@ class EntityTabForm extends EntityForm {
 
     if (empty($original_entity_tab)) {
       // On a new entity, rebuild the router and local tasks.
-      \Drupal::service('router.builder')->setRebuildNeeded();
-      \Drupal::service('plugin.manager.menu.local_task')->clearCachedDefinitions();
+      $this->routerBuilder->setRebuildNeeded();
+      $this->menuLocalTaskPluginManager->clearCachedDefinitions();
     }
     else {
       // On an existing entity, check whether values have changed.
       // A change in the path component requires a route rebuild.
       if ($original_entity_tab->getPathComponent() != $entity_tab->getPathComponent()) {
-        // TODO: inject this service.
-        \Drupal::service('router.builder')->setRebuildNeeded();
+        $this->routerBuilder->setRebuildNeeded();
       }
 
       // A change in the tab title requires a local task rebuild.
       if ($original_entity_tab->getTabTitle() != $entity_tab->getTabTitle()) {
-        // TODO: inject this service.
-        \Drupal::service('plugin.manager.menu.local_task')->clearCachedDefinitions();
+        $this->menuLocalTaskPluginManager->clearCachedDefinitions();
       }
     }
 
