@@ -275,7 +275,13 @@ class EntityTabForm extends EntityForm {
 
     $status = $entity_tab->save();
 
-    if (!empty($original_entity_tab)) {
+    if (empty($original_entity_tab)) {
+      // On a new entity, rebuild the router and local tasks.
+      \Drupal::service('router.builder')->setRebuildNeeded();
+      \Drupal::service('plugin.manager.menu.local_task')->clearCachedDefinitions();
+    }
+    else {
+      // On an existing entity, check whether values have changed.
       // A change in the path component requires a route rebuild.
       if ($original_entity_tab->getPathComponent() != $entity_tab->getPathComponent()) {
         // TODO: inject this service.
