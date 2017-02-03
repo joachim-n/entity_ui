@@ -168,6 +168,7 @@ class EntityTabForm extends EntityForm {
       '#required' => TRUE,
     ];
 
+    /*
     $form['verb'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Permission verb'),
@@ -177,6 +178,7 @@ class EntityTabForm extends EntityForm {
       '#description' => $this->t("TODO."),
       '#required' => TRUE,
     ];
+    */
 
     $form['content'] = [
       '#type' => 'details',
