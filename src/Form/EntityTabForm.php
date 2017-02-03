@@ -287,16 +287,18 @@ class EntityTabForm extends EntityForm {
 
     $status = $entity_tab->save();
 
-    // A change in the path component requires a route rebuild.
-    if ($original_entity_tab->getPathComponent() != $entity_tab->getPathComponent()) {
-      // TODO: inject this service.
-      \Drupal::service('router.builder')->setRebuildNeeded();
-    }
+    if (!empty($original_entity_tab)) {
+      // A change in the path component requires a route rebuild.
+      if ($original_entity_tab->getPathComponent() != $entity_tab->getPathComponent()) {
+        // TODO: inject this service.
+        \Drupal::service('router.builder')->setRebuildNeeded();
+      }
 
-    // A change in the tab title requires a local task rebuild.
-    if ($original_entity_tab->getTabTitle() != $entity_tab->getTabTitle()) {
-      // TODO: inject this service.
-      \Drupal::service('plugin.manager.menu.local_task')->clearCachedDefinitions();
+      // A change in the tab title requires a local task rebuild.
+      if ($original_entity_tab->getTabTitle() != $entity_tab->getTabTitle()) {
+        // TODO: inject this service.
+        \Drupal::service('plugin.manager.menu.local_task')->clearCachedDefinitions();
+      }
     }
 
     switch ($status) {
