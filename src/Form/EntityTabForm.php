@@ -190,8 +190,11 @@ class EntityTabForm extends EntityForm {
 
     $options = [];
     foreach ($this->entityTabContentPluginManager->getDefinitions() as $plugin_id => $definition) {
-      $options[$plugin_id] = $definition['label'];
+      if ($definition['class']::appliesToEntityType($targetEntityType)) {
+        $options[$plugin_id] = $definition['label'];
+      }
     }
+    natcasesort($options);
     $form['content']['content_plugin'] = [
       '#type' => 'select',
       '#title' => $this->t('Content'),
