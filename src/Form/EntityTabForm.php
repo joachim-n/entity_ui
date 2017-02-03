@@ -80,7 +80,7 @@ class EntityTabForm extends EntityForm {
 
   /**
    * {@inheritdoc}
-   */ // change var name! TARGET
+   */
   public function buildForm(array $form, FormStateInterface $form_state, $target_entity_type_id = NULL) {
     $form = parent::buildForm($form, $form_state);
 

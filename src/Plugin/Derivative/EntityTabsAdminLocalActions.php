@@ -55,7 +55,7 @@ class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDerive
           $action = [
             'route_name' => "entity.entity_tab.add_form",
             'route_parameters' => [
-              'entity_type_id' => $target_entity_type_id,
+              'target_entity_type_id' => $target_entity_type_id,
             ],
             'title' => t('Add entity tab'),
             'appears_on' => array("entity_ui.entity_tab.{$target_entity_type_id}.collection"),
