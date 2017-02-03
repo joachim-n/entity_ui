@@ -98,11 +98,6 @@ class EntityTabForm extends EntityForm {
       ));
     }
 
-    // ADD FORM ONLY TODO!
-
-    // Change replace_pattern to avoid undesired dots.
-    //$form['id']['#machine_name']['replace_pattern'] = '[^a-z0-9_]+';
-
     return $form;
   }
 
