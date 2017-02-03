@@ -11,6 +11,18 @@ use Drupal\Core\Entity\EntityTypeInterface;
  */
 interface EntityTabContentInterface extends PluginInspectionInterface {
 
+  /**
+   * Determines whether the plugin can be used with the given entity type.
+   *
+   * This should purely concern itself with applicability: whether the entity
+   * type supports what this plugin does.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface
+   *  The entity type to check.
+   *
+   * @return bool
+   *  TRUE if the plugin can be used with the entity type, FALSE if not.
+   */
   public static function appliesToEntityType(EntityTypeInterface $entity_type);
 
   public function access();
