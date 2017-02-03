@@ -224,7 +224,7 @@ class EntityTabForm extends EntityForm {
   }
 
   /**
-   * Handles submit call when sensor type is selected.
+   * Handles submit call when content plugin is selected.
    */
   public function submitSelectPlugin(array $form, FormStateInterface $form_state) {
     // Rebuild the entity using the form's new state.
