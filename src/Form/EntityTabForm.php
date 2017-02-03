@@ -81,15 +81,15 @@ class EntityTabForm extends EntityForm {
   /**
    * {@inheritdoc}
    */ // change var name! TARGET
-  public function buildForm(array $form, FormStateInterface $form_state, $entity_type_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $target_entity_type_id = NULL) {
     $form = parent::buildForm($form, $form_state);
 
     // EDIT FORM ONLY.
-    if (empty($entity_type_id)) {
+    if (empty($target_entity_type_id)) {
      // TODO! $entity_type_id = get it out of the entity!
     }
     else {
-      $this->targetEntityTypeId = $entity_type_id;
+      $this->targetEntityTypeId = $target_entity_type_id;
 
       $target_entity_type = $this->entityManager->getDefinition($this->targetEntityTypeId);
       $form['#title'] = $this->t('Add new %label @entity-type', array(
