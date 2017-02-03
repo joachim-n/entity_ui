@@ -41,16 +41,6 @@ class EntityTabForm extends EntityForm {
   }
 
   /**
-   * The entity type for which the entity tab is being created.
-   *
-   * @var string
-   */
-   // ADD FORM ONLY TODO!
-  protected $targetEntityTypeId;
-
-  // entity_type.bundle.info
-
-  /**
    * {@inheritdoc}
    */
   protected function init(FormStateInterface $form_state) {
@@ -89,9 +79,7 @@ class EntityTabForm extends EntityForm {
      // TODO! $entity_type_id = get it out of the entity!
     }
     else {
-      $this->targetEntityTypeId = $target_entity_type_id;
-
-      $target_entity_type = $this->entityManager->getDefinition($this->targetEntityTypeId);
+      $target_entity_type = $this->entityManager->getDefinition($this->entity->getTargetEntityTypeID());
       $form['#title'] = $this->t('Add new %label @entity-type', array(
         '%label' => $target_entity_type->getLabel(),
         '@entity-type' => $this->entityType->getLowercaseLabel(),
@@ -274,7 +262,7 @@ class EntityTabForm extends EntityForm {
 
     // Sets the entity type ID into the config name for a new entity tab.
     if ($this->entity->isNew()) {
-      $form_state->setValueForElement($form['id'], $this->targetEntityTypeId . '.' . $form_state->getValue('id'));
+      $form_state->setValueForElement($form['id'], $this->entity->getTargetEntityTypeID() . '.' . $form_state->getValue('id'));
     }
   }
 
