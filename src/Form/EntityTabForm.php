@@ -268,10 +268,8 @@ class EntityTabForm extends EntityForm {
    *   TRUE if the entity tab exists, FALSE otherwise.
    */
   public function exists($entity_id, array $element) {
-    return FALSE;
-    // TODO
-    return (bool) $this->queryFactory
-      ->get($this->entity->getEntityTypeId())
+    return (bool) $this->entityTypeManager->getStorage('entity_tab')
+      ->getQuery()
       ->condition('id', $element['#field_prefix'] . $entity_id)
       ->execute();
   }
