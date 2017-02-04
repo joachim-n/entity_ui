@@ -96,7 +96,7 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
   }
 
   /**
-   * Gets the path component for this tab.TODO
+   * Gets the page title for this tab.
    *
    * @return string
    *  The path component that is appended to the target entity's canonical URL.
@@ -106,7 +106,7 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
   }
 
   /**
-   * Gets the path component for this tab.TODO
+   * Gets the tab title for this tab.
    *
    * @return string
    *  The path component that is appended to the target entity's canonical URL.
