@@ -67,7 +67,9 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
   protected $target_entity_type;
 
   /**
-   * The ID of the Entity Tab Content plugin
+   * The ID of the Entity Tab Content plugin.
+   *
+   * Needs to be set to a default for the form to work, apparently.
    *
    * @var string
    */
