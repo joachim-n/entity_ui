@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_ui\Plugin\EntityTabContent;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\entity_ui\Plugin\EntityTabContentBase;
 use Drupal\entity_ui\Plugin\EntityTabContentInterface;
