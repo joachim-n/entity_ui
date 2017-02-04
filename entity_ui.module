@@ -9,8 +9,8 @@
  * Implements hook_entity_type_build().
  */
 function entity_ui_entity_type_build(array &$entity_types) {
-  foreach ($entity_types as $entity_type_id => $type) {
-    if ($type->getGroup() != 'content') {
+  foreach ($entity_types as $entity_type_id => $entity_type) {
+    if ($entity_type->getGroup() != 'content') {
       continue;
     }
     // TODO: filter out the entity types we don't work with!
@@ -19,18 +19,18 @@ function entity_ui_entity_type_build(array &$entity_types) {
     /*
     // Set up a link template for each tab.
     // TODO: stop calling these operations!
-    foreach (entity_ui_get_tabs($type) as $tab_id => $entity_tab) {
+    foreach (entity_ui_get_tabs($entity_type) as $tab_id => $entity_tab) {
       // TODO: add a prefix to template name to prevent any clashes?
-      $type->setLinkTemplate($tab_id, $type->getLinkTemplate('canonical') . '/' . $tab_id);
+      $entity_type->setLinkTemplate($tab_id, $entity_type->getLinkTemplate('canonical') . '/' . $tab_id);
     }
     */
 
     // @todo Core forgot to add a direct way to manipulate route_provider, so
     // we have to do it the sloppy way for now.
-    $providers = $type->getRouteProviderClasses() ?: [];
+    $providers = $entity_type->getRouteProviderClasses() ?: [];
     if (empty($providers['entity_ui'])) {
       $providers['entity_ui'] = Drupal\entity_ui\Routing\TabRouteProvider::class;
-      $type->setHandlerClass('route_provider', $providers);
+      $entity_type->setHandlerClass('route_provider', $providers);
     }
   }
 }
