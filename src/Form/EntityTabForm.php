@@ -96,9 +96,9 @@ class EntityTabForm extends EntityForm {
   public function buildForm(array $form, FormStateInterface $form_state, $target_entity_type_id = NULL) {
     $form = parent::buildForm($form, $form_state);
 
-    // EDIT FORM ONLY.
     if (empty($target_entity_type_id)) {
-     // TODO! $entity_type_id = get it out of the entity!
+      // We can't operate without our additional parameter.
+      throw new \Exception('Missing paramter $target_entity_type_id.');
     }
     else {
       $target_entity_type = $this->entityManager->getDefinition($this->entity->getTargetEntityTypeID());
