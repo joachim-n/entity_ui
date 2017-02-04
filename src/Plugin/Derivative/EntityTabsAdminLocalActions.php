@@ -10,6 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Entity UI actions on the admin collections.
+ *
+ * This adds a local action to add a new Entity Tab to each of the admin UI
+ * collections of entity types.
  */
 class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDeriverInterface {
 

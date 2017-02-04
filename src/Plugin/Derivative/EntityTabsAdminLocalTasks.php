@@ -9,7 +9,10 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines Entity UI tabs on target entities.
+ * Adds a local task for Entity Tab admin on the target entity type admin UI.
+ *
+ * For example, this adds a task for Entity Tabs on nodes to the node type admin
+ * list.
  */
 class EntityTabsAdminLocalTasks extends DeriverBase implements ContainerDeriverInterface {
 
