@@ -50,6 +50,14 @@ class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDerive
   public function getDerivativeDefinitions($base_plugin_definition) {
     $entity_types = $this->entityTypeManager->getDefinitions();
     foreach ($entity_types as $target_entity_type_id => $target_entity_type) {
+      if ($this->entityTypeManager->hasHandler($target_entity_type_id, 'entity_ui_admin')) {
+        $entity_ui_admin_handler = $this->entityTypeManager->getHandler($target_entity_type_id, 'entity_ui_admin');
+
+        $this->derivatives += $entity_ui_admin_handler->getLocalActions($base_plugin_definition);
+      }
+
+
+      /*
       if ($bundle_entity_type_id = $target_entity_type->getBundleEntityType()) {
         $bundle_entity_type = $entity_types[$bundle_entity_type_id];
         if ($bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection')) {
@@ -71,7 +79,9 @@ class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDerive
       }
 
       if ($field_ui_base_route_name = $target_entity_type->get('field_ui_base_route')) {
+        // TODO!
       }
+      */
     }
 
     return $this->derivatives;
