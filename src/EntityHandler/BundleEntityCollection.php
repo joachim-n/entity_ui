@@ -3,6 +3,7 @@
 namespace Drupal\entity_ui\EntityHandler;
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Provides an admin UI for entity tabs on target entities with bundles.
@@ -12,6 +13,34 @@ use Drupal\Core\Entity\EntityTypeInterface;
  */
 class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminInterface {
 
+  protected $bundleEntityTypeID;
+
+  protected $bundleEntityType;
+
+  protected $bundleCollectionRouteName;
+
+  /**
+   * Constructs a new EntityUIAdminBase.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   The entity type definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeInterface $entity_type, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($entity_type, $entity_type_manager);
+
+    $this->bundleEntityTypeID = $entity_type->getBundleEntityType();
+    $this->bundleEntityType = $entity_type_manager->getDefinition($this->bundleEntityTypeID);
+
+    $bundle_collection_link_template = $this->bundleEntityType->getLinkTemplate('collection');
+
+    // Whoa!!! MASSIVE assumption! If the bundle entity type overrides
+    // or doesn't even use AdminHtmlRouteProvider, then this might not
+    // be the route name!
+    $this->bundleCollectionRouteName = "entity.{$this->bundleEntityTypeID}.collection";
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -20,15 +49,63 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
 
   }
 
-  // called from derivative
   /**
    * {@inheritdoc}
    */
-  public function getLocalTasks() {
+  public function getLocalTasks($base_plugin_definition) {
+    $tasks = [];
 
+    $bundle_entity_type_id = $this->entityType->getBundleEntityType();
+    $bundle_entity_type = $this->entityTypeManager->getDefinition($bundle_entity_type_id);
+
+    $bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection');
+
+    // Whoa!!! MASSIVE assumption! If the bundle entity type overrides
+    // or doesn't even use AdminHtmlRouteProvider, then this might not
+    // be the route name!
+    $bundle_collection_route_name = "entity.{$bundle_entity_type_id}.collection";
+
+    // Tab for the Entity Tabs admin collection route.
+    $task = $base_plugin_definition;
+    $task['title'] = 'Entity tabs';
+    $task['route_name'] = "entity_ui.entity_tab.{$this->entityTypeId}.collection";
+    $task['base_route'] = $bundle_collection_route_name;
+    $task['weight'] = 20;
+
+    $tasks[$task['route_name']] = $task;
+
+    // Add a default tab for the type collection.
+    // If there is one already, localTasksAlter() will remove it.
+    $task = $base_plugin_definition;
+    $task['title'] = t('List'); // TODO get title from bundle collection route.
+    $task['route_name'] = $bundle_collection_route_name;
+    $task['base_route'] = $bundle_collection_route_name;
+    $task['weight'] = 0;
+
+    $tasks['entity_ui.' . $bundle_collection_route_name] = $task;
+
+    return $tasks;
   }
 
-  // called from derivative
+  /**
+   * {@inheritdoc}
+   */
+  public function localTasksAlter(&$local_tasks) {
+    // Determine whether the bundle entity collection already has a task.
+    // We expect this to be the default task, that is, the base route and the
+    // route are the same.
+    foreach ($local_tasks as $plugin_id => $local_task) {
+      if ($local_task['base_route'] == $this->bundleCollectionRouteName &&
+          $local_task['route_name'] == $this->bundleCollectionRouteName &&
+          $local_task['id'] != 'entity_ui.entity_tabs.local_tasks') {
+        // We've found one, so remove the task that we added, as it's surplus.
+        unset($local_tasks['entity_ui.entity_tabs.local_tasks:entity_ui.' . $this->bundleCollectionRouteName]);
+        // We're done with this entity type. Bail.
+        return;
+      }
+    }
+  }
+
   /**
    * {@inheritdoc}
    */
