@@ -55,21 +55,11 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
   public function getLocalTasks($base_plugin_definition) {
     $tasks = [];
 
-    $bundle_entity_type_id = $this->entityType->getBundleEntityType();
-    $bundle_entity_type = $this->entityTypeManager->getDefinition($bundle_entity_type_id);
-
-    $bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection');
-
-    // Whoa!!! MASSIVE assumption! If the bundle entity type overrides
-    // or doesn't even use AdminHtmlRouteProvider, then this might not
-    // be the route name!
-    $bundle_collection_route_name = "entity.{$bundle_entity_type_id}.collection";
-
     // Tab for the Entity Tabs admin collection route.
     $task = $base_plugin_definition;
     $task['title'] = 'Entity tabs';
     $task['route_name'] = "entity_ui.entity_tab.{$this->entityTypeId}.collection";
-    $task['base_route'] = $bundle_collection_route_name;
+    $task['base_route'] = $this->bundleCollectionRouteName;
     $task['weight'] = 20;
 
     $tasks[$task['route_name']] = $task;
@@ -78,11 +68,11 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
     // If there is one already, localTasksAlter() will remove it.
     $task = $base_plugin_definition;
     $task['title'] = t('List'); // TODO get title from bundle collection route.
-    $task['route_name'] = $bundle_collection_route_name;
-    $task['base_route'] = $bundle_collection_route_name;
+    $task['route_name'] = $this->bundleCollectionRouteName;
+    $task['base_route'] = $this->bundleCollectionRouteName;
     $task['weight'] = 0;
 
-    $tasks['entity_ui.' . $bundle_collection_route_name] = $task;
+    $tasks['entity_ui.' . $this->bundleCollectionRouteName] = $task;
 
     return $tasks;
   }
@@ -112,23 +102,18 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
   public function getLocalActions($base_plugin_definition) {
     $actions = [];
 
-    $entity_type_id = $this->entityType->id();
-    $bundle_entity_type_id = $this->entityType->getBundleEntityType();
-    // TODO: inject service.
-    $bundle_entity_type = \Drupal::service('entity_type.manager')->getDefinition($bundle_entity_type_id);
-    $bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection');
     $action = $base_plugin_definition;
 
     $action = [
       'route_name' => "entity.entity_tab.add_form",
       'route_parameters' => [
-        'target_entity_type_id' => $entity_type_id,
+        'target_entity_type_id' => $this->entityTypeId,
       ],
       'title' => t('Add entity tab'),
-      'appears_on' => array("entity_ui.entity_tab.{$entity_type_id}.collection"),
+      'appears_on' => array("entity_ui.entity_tab.{$this->entityTypeId}.collection"),
     ];
 
-    $actions["entity_ui.entity_tab.{$entity_type_id}.collection.add"] = $action;
+    $actions["entity_ui.entity_tab.{$this->entityTypeId}.collection.add"] = $action;
 
     return $actions;
   }
