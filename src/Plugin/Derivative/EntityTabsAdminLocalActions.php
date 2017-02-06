@@ -50,6 +50,9 @@ class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDerive
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $entity_types = $this->entityTypeManager->getDefinitions();
+
+    // Get derivative definitions from each entity type's entity_ui_admin
+    // handler.
     foreach ($entity_types as $target_entity_type_id => $target_entity_type) {
       if ($this->entityTypeManager->hasHandler($target_entity_type_id, 'entity_ui_admin')) {
         $entity_ui_admin_handler = $this->entityTypeManager->getHandler($target_entity_type_id, 'entity_ui_admin');
