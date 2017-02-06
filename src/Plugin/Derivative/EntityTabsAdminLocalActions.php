@@ -11,8 +11,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Defines Entity UI actions on the admin collections.
  *
- * This adds a local action to add a new Entity Tab to each of the admin UI
- * collections of entity types.
+ * This hands over to entity types' entity_ui_admin handler, to adds a local
+ * action to add a new Entity Tab to each of the Entity Tab admin UI collections
+ * on different entity types.
  */
 class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDeriverInterface {
 
@@ -55,33 +56,6 @@ class EntityTabsAdminLocalActions extends DeriverBase implements ContainerDerive
 
         $this->derivatives += $entity_ui_admin_handler->getLocalActions($base_plugin_definition);
       }
-
-
-      /*
-      if ($bundle_entity_type_id = $target_entity_type->getBundleEntityType()) {
-        $bundle_entity_type = $entity_types[$bundle_entity_type_id];
-        if ($bundle_collection_link_template = $bundle_entity_type->getLinkTemplate('collection')) {
-          $action = $base_plugin_definition;
-
-          $action = [
-            'route_name' => "entity.entity_tab.add_form",
-            'route_parameters' => [
-              'target_entity_type_id' => $target_entity_type_id,
-            ],
-            'title' => t('Add entity tab'),
-            'appears_on' => array("entity_ui.entity_tab.{$target_entity_type_id}.collection"),
-          ];
-
-          $this->derivatives["entity_ui.entity_tab.{$target_entity_type_id}.collection.add"] = $action;
-
-          continue;
-        }
-      }
-
-      if ($field_ui_base_route_name = $target_entity_type->get('field_ui_base_route')) {
-        // TODO!
-      }
-      */
     }
 
     return $this->derivatives;
