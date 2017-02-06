@@ -48,4 +48,31 @@ class EntityUIAdminBase implements EntityHandlerInterface {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getRoutes() {
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocalTasks($base_plugin_definition) {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function localTasksAlter(&$local_tasks) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocalActions($base_plugin_definition) {
+    return [];
+  }
+
 }

@@ -6,7 +6,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a TODO.
+ * Defines the interface for Entity UI admin handlers.
+ *
+ *
  */
 interface EntityUIAdminInterface {
 
@@ -14,14 +16,20 @@ interface EntityUIAdminInterface {
    *
    */
   // CAlled from subscriber
-  public function getRoutes() {
-
-  }
+  public function getRoutes();
 
   // called from derivative
-  public function getLocalTasks() {
+  public function getLocalTasks($base_plugin_definition);
 
-  }
+  /**
+   * Alter local tasks.
+   *
+   * @param $local_tasks
+   *  The array of local tasks passed to hook_local_tasks_alter().
+   *
+   * @see entity_ui_local_tasks_alter()
+   */
+  public function localTasksAlter(&$local_tasks);
 
   /**
    * Gets the definition of all derivatives of a base plugin. TODO
