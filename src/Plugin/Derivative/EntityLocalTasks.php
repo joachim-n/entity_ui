@@ -64,10 +64,10 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
         $path_component = $entity_tab->getPathComponent();
 
         $task['title'] = $entity_tab->getTabTitle();
+        $task['weight'] = $entity_tab->get('weight');
         $task['route_name'] = "entity.{$entity_type_id}.{$path_component}";
         $task['base_route'] = "entity.{$entity_type_id}.canonical";
 
-        // TODO: set weights.
 
         // TODO; namespace with a prefix?
         $this->derivatives["entity.{$entity_type_id}.{$path_component}"] = $task;
