@@ -19,11 +19,11 @@ class BasicFieldUI extends EntityUIAdminBase {
   }
 
   // called from derivative
-  public function getLocalTasks() {
+  public function getLocalTasks($base_plugin_definition) {
     return [];
   }
 
-  public function localTasksAlter($local_tasks) {
+  public function localTasksAlter(&$local_tasks) {
 
   }
 
