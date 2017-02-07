@@ -4,6 +4,7 @@ namespace Drupal\entity_ui\EntityHandler;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\Routing\Route;
 
 /**
  * Provides an admin UI for entity tabs on target entities with bundles.
@@ -33,8 +34,6 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
     $this->bundleEntityTypeID = $entity_type->getBundleEntityType();
     $this->bundleEntityType = $entity_type_manager->getDefinition($this->bundleEntityTypeID);
 
-    $bundle_collection_link_template = $this->bundleEntityType->getLinkTemplate('collection');
-
     // Whoa!!! MASSIVE assumption! If the bundle entity type overrides
     // or doesn't even use AdminHtmlRouteProvider, then this might not
     // be the route name!
@@ -44,9 +43,30 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
   /**
    * {@inheritdoc}
    */
-  // CAlled from subscriber
   public function getRoutes() {
+    $routes = [];
 
+    //$admin_permission = $bundle_entity_type->getAdminPermission();
+    // TEMP! TODO!
+    $admin_permission = 'made up perm';
+
+    $bundle_collection_link_template = $this->bundleEntityType->getLinkTemplate('collection');
+
+    $route = new Route($bundle_collection_link_template . '/entity_ui');
+    $route
+      ->addDefaults([
+        '_entity_list' => 'entity_tab',
+        '_title' => '@label tabs',
+        '_title_arguments' => ['@label' => $this->entityType->getLabel()],
+      ])
+      ->addOptions([
+        '_target_entity_type_id' => $this->entityTypeId,
+      ])
+      ->setRequirement('_permission', $admin_permission);
+
+    $routes["entity_ui.entity_tab.{$this->entityTypeId}.collection"] = $route;
+
+    return $routes;
   }
 
   /**

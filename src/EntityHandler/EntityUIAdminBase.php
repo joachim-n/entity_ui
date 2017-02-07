@@ -52,7 +52,7 @@ class EntityUIAdminBase implements EntityHandlerInterface {
    * {@inheritdoc}
    */
   public function getRoutes() {
-
+    return [];
   }
 
   /**

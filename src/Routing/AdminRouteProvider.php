@@ -34,11 +34,13 @@ class AdminRouteProvider extends AdminHtmlRouteProvider {
   public function getRoutes(EntityTypeInterface $entity_type) {
     $collection = parent::getRoutes($entity_type);
 
+    /*
     if ($collection_routes = $this->getPerEntityTypeCollectionRoutes($entity_type)) {
       foreach ($collection_routes as $target_entity_type_id => $collection_route) {
         $collection->add("entity_ui.entity_tab.{$target_entity_type_id}.collection", $collection_route);
       }
     }
+    */
 
     return $collection;
   }
