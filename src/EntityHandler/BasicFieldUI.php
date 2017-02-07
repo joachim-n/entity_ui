@@ -13,9 +13,8 @@ class BasicFieldUI extends EntityUIAdminBase {
   /**
    * {@inheritdoc}
    */
-  // CAlled from subscriber
   public function getRoutes() {
-
+    return [];
   }
 
   // called from derivative
