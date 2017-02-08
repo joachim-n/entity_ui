@@ -26,7 +26,7 @@ class OwnerAssign extends EntityTabContentBase implements EntityTabContentInterf
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state, $entity_tab) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     //dsm($entity_tab);
     $form['foo'] = [
       '#markup' => 'owner!',
