@@ -230,8 +230,9 @@ class EntityTabForm extends EntityForm {
       '#weight' => 21,
     ];
 
-    $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->get('content_plugin'), []);
-    dsm($content_plugin);
+    $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->get('content_plugin'), [
+      'target_entity_type' => $targetEntityType,
+    ]);
     $form['content']['content_config'] += $content_plugin->buildConfigurationForm([], $form_state);
 
 
