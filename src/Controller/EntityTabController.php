@@ -70,7 +70,7 @@ class EntityTabController implements ContainerInjectionInterface {
   public function content() {
     // Get the entity tab ID from the current route.
     // @todo is it possible to set this as a parameter and have it upcasted?
-    $entity_tab_id = $this->currentRouteMatch->getRouteObject()->getDefault('_content_plugin');
+    $entity_tab_id = $this->currentRouteMatch->getRouteObject()->getDefault('_entity_tab_id');
     $entity_tab = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->load($entity_tab_id);
 
     $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->getPluginID(), []);
@@ -85,7 +85,7 @@ class EntityTabController implements ContainerInjectionInterface {
    *  The page title.
    */
   public function title() {
-    $entity_tab_id = $this->currentRouteMatch->getRouteObject()->getDefault('_content_plugin');
+    $entity_tab_id = $this->currentRouteMatch->getRouteObject()->getDefault('_entity_tab_id');
     $entity_tab = \Drupal::service('entity_type.manager')->getStorage('entity_tab')->load($entity_tab_id);
     return $entity_tab->getPageTitle();
   }

@@ -34,7 +34,7 @@ class TabRouteProvider implements EntityRouteProviderInterface {
         ->setDefaults([
           '_controller' => '\Drupal\entity_ui\Controller\EntityTabController::content',
           '_title_callback' => '\Drupal\entity_ui\Controller\EntityTabController::title',
-          '_content_plugin' => $tab_id,
+          '_entity_tab_id' => $tab_id,
         ])
         ->setRequirements([
           '_permission' => 'access content', // TODO
