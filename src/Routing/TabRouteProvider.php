@@ -29,6 +29,7 @@ class TabRouteProvider implements EntityRouteProviderInterface {
       // entity tab entities, and this would be circular.
       $path_component = $entity_tab->getPathComponent();
       $path = $entity_type->getLinkTemplate('canonical') . '/' . $path_component;
+      $entity_type_id = $entity_type->id();
 
       $route = new Route($path);
       $route
@@ -39,9 +40,11 @@ class TabRouteProvider implements EntityRouteProviderInterface {
         ])
         ->setRequirements([
           '_permission' => 'access content', // TODO
+        ])
+        ->setOption('parameters', [
+          $entity_type_id => ['type' => 'entity:' . $entity_type_id],
         ]);
-      // TODO: requirements, options.
-      $entity_type_id = $entity_type->id();
+
       // TODO: namespace with a prefix?
       $collection->add("entity.{$entity_type_id}.{$path_component}", $route);
     }
