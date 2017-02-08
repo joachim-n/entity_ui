@@ -24,9 +24,10 @@ class TabRouteProvider implements EntityRouteProviderInterface {
     $collection = new RouteCollection();
 
     foreach (entity_ui_get_tabs($entity_type) as $tab_id => $entity_tab) {
+      // Note that we can't use link templates, because to define them on the
+      // target entity type we'd first need to load (and therefore discover)
+      // entity tab entities, and this would be circular.
       $path_component = $entity_tab->getPathComponent();
-
-      // $path = $entity_type->getLinkTemplate($tab_id);
       $path = $entity_type->getLinkTemplate('canonical') . '/' . $path_component;
 
       $route = new Route($path);
@@ -45,31 +46,7 @@ class TabRouteProvider implements EntityRouteProviderInterface {
       $collection->add("entity.{$entity_type_id}.{$path_component}", $route);
     }
 
-    /*
-    // TODO: need link template first!
-    //$path = $entity_type->getLinkTemplate('moderation-form');
-    $path = 'entity/foobar';
-    $route = new Route($path);
-    $route
-      ->setDefaults([
-        '_entity_form' => "{$entity_type_id}.moderation",
-        '_title' => 'Moderation',
-      ])
-      ->setRequirement('_permission', 'administer moderation states') // @todo Come up with a new permission.
-      ->setOption('parameters', [
-        $entity_type_id => ['type' => 'entity:' . $entity_type_id],
-      ]);
-    $collection->add("entity.{$entity_type_id}.moderation", $moderation_route);
-    */
-
-    /*
-    if ($moderation_route = $this->getModerationFormRoute($entity_type)) {
-      $entity_type_id = $entity_type->id();
-      $collection->add("entity.{$entity_type_id}.OPERATION", $moderation_route);
-    }
-    */
-
     return $collection;
   }
-  
+
 }
