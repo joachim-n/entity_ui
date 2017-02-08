@@ -96,11 +96,12 @@ class EntityTabForm extends EntityForm {
   public function buildForm(array $form, FormStateInterface $form_state, $target_entity_type_id = NULL) {
     $form = parent::buildForm($form, $form_state);
 
-    if (empty($target_entity_type_id)) {
-      // We can't operate without our additional parameter.
-      throw new \Exception('Missing paramter $target_entity_type_id.');
-    }
-    else {
+    if ($this->entity->isNew()) {
+      if (empty($target_entity_type_id)) {
+        // We can't operate without our additional parameter.
+        throw new \Exception('Missing parameter $target_entity_type_id.');
+      }
+
       $target_entity_type = $this->entityManager->getDefinition($this->entity->getTargetEntityTypeID());
       $form['#title'] = $this->t('Add new %label @entity-type', array(
         '%label' => $target_entity_type->getLabel(),
