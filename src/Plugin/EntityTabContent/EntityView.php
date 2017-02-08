@@ -18,8 +18,13 @@ class EntityView extends EntityTabContentBase implements EntityTabContentInterfa
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form['foo'] = [
-      '#markup' => 'view!',
+    // TODO: inject.
+    $view_mode_options = \Drupal::service('entity_display.repository')->getViewModeOptions($this->targetEntityType->id());
+    $form['view_mode'] = [
+      '#type' => 'select',
+      '#title' => t('View mode'),
+      '#description' => t("The view mode in which to display the entity."),
+      '#options' => $view_mode_options,
     ];
 
     return $form;
