@@ -52,16 +52,6 @@ function entity_ui_entity_type_build(array &$entity_types) {
       // Done with this entity type.
       continue;
     }
-
-    /*
-    // Set up a link template for each tab.
-    // TODO: stop calling these operations!
-    foreach (entity_ui_get_tabs($entity_type) as $tab_id => $entity_tab) {
-      // TODO: add a prefix to template name to prevent any clashes?
-      $entity_type->setLinkTemplate($tab_id, $entity_type->getLinkTemplate('canonical') . '/' . $tab_id);
-    }
-    */
-
   }
 }
 
