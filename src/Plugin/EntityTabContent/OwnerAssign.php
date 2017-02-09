@@ -41,11 +41,11 @@ class OwnerAssign extends EntityTabContentBase implements EntityTabContentInterf
    */
   public function buildContent(EntityInterface $target_entity) {
     // ok how the fuck do we output a form here???????
-    
+
     $build['build'] = [
       '#markup' => 'owner!',
     ];
-    
+
 
     return $build;
   }
