@@ -73,14 +73,14 @@ class EntityTabController implements ContainerInjectionInterface {
     $entity_tab_id = $this->currentRouteMatch->getRouteObject()->getDefault('_entity_tab_id');
     $entity_tab = $this->entityTypeManager->getStorage('entity_tab')->load($entity_tab_id);
 
+    // Get the target entity the tab is being shown on.
     $target_entity_type = $this->entityTypeManager->getDefinition($entity_tab->getTargetEntityTypeID());
-
     $target_entity = $this->currentRouteMatch->getParameter($target_entity_type->id());
 
+    // Get the content plugin for the entity tab, and get the content from it.
     $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->getPluginID(), [
       'entity_tab' => $entity_tab,
     ]);
-
     return $content_plugin->buildContent($target_entity);
   }
 
