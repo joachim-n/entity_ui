@@ -231,7 +231,7 @@ class EntityTabForm extends EntityForm {
     ];
 
     $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->get('content_plugin'), [
-      'target_entity_type' => $targetEntityType,
+      'entity_tab' => $entity_tab,
     ]);
     $form['content']['content_config'] += $content_plugin->buildConfigurationForm([], $form_state);
 
