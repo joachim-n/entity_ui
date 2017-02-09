@@ -26,8 +26,6 @@ interface EntityTabContentInterface extends PluginInspectionInterface {
    */
   public static function appliesToEntityType(EntityTypeInterface $entity_type);
 
-  public function access();
-
   /**
    * Provides a form array for the plugin's settings form.
    *
@@ -41,6 +39,8 @@ interface EntityTabContentInterface extends PluginInspectionInterface {
    *   A form array for the plugin's configuration subform.
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state);
+
+  public function access();
 
   /**
    * Builds the content for the entity tab.
