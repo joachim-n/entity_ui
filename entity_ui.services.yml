@@ -2,3 +2,8 @@ services:
   plugin.manager.entity_tab_content.processor:
     class: Drupal\entity_ui\Plugin\EntityTabContentManager
     parent: default_plugin_manager
+  entity_ui.admin_route_subscriber:
+    class: Drupal\entity_ui\Routing\AdminRouteProviderSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
