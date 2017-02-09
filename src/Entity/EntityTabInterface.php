@@ -9,5 +9,13 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface EntityTabInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Returns the settings for the content plugin.
+   *
+   * @return array
+   *  The plugin settings.
+   */
+  public function getPluginConfiguration();
+
+  // TODO
 }

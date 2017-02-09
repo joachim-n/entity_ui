@@ -119,6 +119,13 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
     return $this->content_plugin;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getPluginConfiguration() {
+    return $this->content_config;
+  }
+
   // todo: config dependency on the plugin.
 
 }
