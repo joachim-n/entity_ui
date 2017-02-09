@@ -4,29 +4,30 @@ namespace Drupal\entity_ui\Plugin;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\entity_ui\Entity\EntityTabInterface;
 
 /**
  * Base class for Entity tab content plugins.
  */
 abstract class EntityTabContentBase extends PluginBase implements EntityTabContentInterface {
 
-
-  // TODO: we need the actual Tab this is on to come into the config
-  // or at least elements of it, so we know the entity type we're on!
+  /**
+   * The target entity type ID for this plugin instance.
+   */
+  protected $targetEntityTypeId;
 
   /**
-   * The target entity type for this plugin instance.
+   * {@inheritdoc}
    */
-  protected $targetEntityType;
-
-
   public function __construct($configuration, $plugin_id, $plugin_definition) {
-    // TODO: throw exception if
-    if (!isset($configuration['target_entity_type']) || !($configuration['target_entity_type'] instanceof EntityTypeInterface)) {
-      throw new \Exception("Entity tab plugin configuration must contain a target entity type.");
-    }
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
 
-    $this->targetEntityType = $configuration['target_entity_type'];
+    // Our plugin manager has already checked this exists as expected.
+    $entity_tab = $configuration['entity_tab'];
+
+    $this->targetEntityTypeId = $entity_tab->getTargetEntityTypeID();
+    // Zap the configuration the parent method set.
+    $this->configuration = $entity_tab->getPluginConfiguration();
   }
 
   /**
