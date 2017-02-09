@@ -32,6 +32,7 @@ function entity_ui_entity_type_build(array &$entity_types) {
     // Add our admin UI handler.
     // Which handler class we add depends on what sort of admin UI the entity
     // type has.
+    // @see \Drupal\entity_ui\EntityHandler\EntityUIAdminInterface
     // Case 1: The entity type has a bundle entity type, and there is a link
     // template for the collection of bundle entities.
     if ($bundle_entity_type_id = $entity_type->getBundleEntityType()) {

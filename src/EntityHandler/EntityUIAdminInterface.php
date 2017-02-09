@@ -15,6 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * For example, node Entity Tabs are added as a tab alongside the list of node
  * types, whereas user Entity Tabs are added alongside the user field admin tabs
  * as there are no user types.
+ *
+ * @see entity_ui_entity_type_build()
  */
 interface EntityUIAdminInterface {
 
