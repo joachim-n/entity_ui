@@ -36,6 +36,9 @@ class OwnerAssign extends EntityTabContentBase implements EntityTabContentInterf
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildContent(EntityInterface $target_entity) {
     // ok how the fuck do we output a form here???????
     

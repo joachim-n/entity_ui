@@ -28,6 +28,9 @@ class EntityForm extends EntityTabContentBase implements EntityTabContentInterfa
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildContent(EntityInterface $target_entity) {
     $build['build'] = [
       '#markup' => 'form!',

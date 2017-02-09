@@ -33,17 +33,13 @@ class EntityView extends EntityTabContentBase implements EntityTabContentInterfa
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildContent(EntityInterface $target_entity) {
     $view_builder = \Drupal::service('entity_type.manager')->getViewBuilder($this->targetEntityTypeId);
 
-    return $view_builder->view($target_entity); // , $view_mode
-
-
-    $build['build'] = [
-      '#markup' => 'view!',
-    ];
-
-    return $build;
+    return $view_builder->view($target_entity, $this->configuration['view_mode']);
   }
 
 }
