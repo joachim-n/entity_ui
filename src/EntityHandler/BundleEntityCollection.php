@@ -87,7 +87,7 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
     // Add a default tab for the type collection.
     // If there is one already, localTasksAlter() will remove it.
     $task = $base_plugin_definition;
-    $task['title'] = t('List'); // TODO get title from bundle collection route.
+    $task['title'] = t('List');
     $task['route_name'] = $this->bundleCollectionRouteName;
     $task['base_route'] = $this->bundleCollectionRouteName;
     $task['weight'] = 0;
