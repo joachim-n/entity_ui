@@ -28,15 +28,16 @@ interface EntityTabContentInterface extends PluginInspectionInterface {
   public function access();
 
   /**
-   * Provides a form array for the TODO plugin's settings form.
+   * Provides a form array for the plugin's settings form.
    *
    * @param array $form
-   *   The form array.
+   *   The form array to add elements to. Elements should be placed in the top
+   *   level of this.
    * @param FormStateInterface $form_state
    *   The form state.
    *
    * @return array
-   *   The modified form array.
+   *   A form array for the plugin's configuration subform.
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state);
 
