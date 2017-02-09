@@ -7,7 +7,9 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
- * Provides the Entity tab content plugin manager.
+ * Manages Entity tab content plugins.
+ *
+ * @see \Drupal\entity_ui\Plugin\EntityTabContentInterface
  */
 class EntityTabContentManager extends DefaultPluginManager {
 
