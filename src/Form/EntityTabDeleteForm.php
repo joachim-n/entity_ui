@@ -94,14 +94,9 @@ class EntityTabDeleteForm extends EntityConfirmFormBase {
     $this->routerBuilder->setRebuildNeeded();
     $this->menuLocalTaskPluginManager->clearCachedDefinitions();
 
-    drupal_set_message(
-      $this->t('content @type: deleted @label.',
-        [
-          '@type' => $this->entity->bundle(),
-          '@label' => $this->entity->label(),
-        ]
-        )
-    );
+    drupal_set_message($this->t('Deleted @label.', [
+      '@label' => $this->entity->label(),
+    ]));
 
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
