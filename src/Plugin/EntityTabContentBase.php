@@ -4,7 +4,6 @@ namespace Drupal\entity_ui\Plugin;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\entity_ui\Entity\EntityTabInterface;
 
 /**
  * Base class for Entity tab content plugins.

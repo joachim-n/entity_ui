@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_ui\Plugin\EntityTabContent;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\EntityOwnerInterface;
@@ -35,10 +36,13 @@ class OwnerAssign extends EntityTabContentBase implements EntityTabContentInterf
     return $form;
   }
 
-  public function buildContent() {
+  public function buildContent(EntityInterface $target_entity) {
+    // ok how the fuck do we output a form here???????
+    
     $build['build'] = [
       '#markup' => 'owner!',
     ];
+    
 
     return $build;
   }

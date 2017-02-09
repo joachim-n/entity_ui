@@ -2,9 +2,10 @@
 
 namespace Drupal\entity_ui\Plugin;
 
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Plugin\PluginInspectionInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Defines an interface for Entity tab content plugins.
@@ -40,5 +41,16 @@ interface EntityTabContentInterface extends PluginInspectionInterface {
    *   A form array for the plugin's configuration subform.
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state);
+
+  /**
+   * Builds the content for the entity tab.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $target_entity
+   *  The entity the tab is on.
+   *
+   * @return
+   *  A render array.
+   */
+  public function buildContent(EntityInterface $target_entity);
 
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_ui\Plugin\EntityTabContent;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\entity_ui\Plugin\EntityTabContentBase;
@@ -19,6 +20,7 @@ class EntityForm extends EntityTabContentBase implements EntityTabContentInterfa
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    //dsm($entity_tab);
     $form['foo'] = [
       '#markup' => 'form!',
     ];
@@ -26,7 +28,7 @@ class EntityForm extends EntityTabContentBase implements EntityTabContentInterfa
     return $form;
   }
 
-  public function buildContent() {
+  public function buildContent(EntityInterface $target_entity) {
     $build['build'] = [
       '#markup' => 'form!',
     ];
