@@ -222,13 +222,11 @@ class EntityTabForm extends EntityForm {
       '#type' => 'submit',
       '#value' => $this->t('Update'),
       '#submit' => ['::submitSelectPlugin'],
-      '#weight' => 20,
       '#attributes' => ['class' => ['js-hide']],
     ];
 
     $form['content']['content_config'] = [
       '#type' => 'container',
-      '#weight' => 21,
     ];
 
     $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->get('content_plugin'), [
