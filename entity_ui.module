@@ -71,7 +71,6 @@ function entity_ui_local_tasks_alter(&$local_tasks) {
 }
 
 // TODO: move this to a service!
-// todo: EntityTypeInterface
 function entity_ui_get_tabs(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
   // DAMN IT CIRCULAR!!!!!!!!!!! FUCK
 
