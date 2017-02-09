@@ -68,7 +68,6 @@ class EntityLocalTasks extends DeriverBase implements ContainerDeriverInterface 
         $task['route_name'] = "entity.{$entity_type_id}.{$path_component}";
         $task['base_route'] = "entity.{$entity_type_id}.canonical";
 
-
         // TODO; namespace with a prefix?
         $this->derivatives["entity.{$entity_type_id}.{$path_component}"] = $task;
       }
