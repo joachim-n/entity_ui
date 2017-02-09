@@ -227,6 +227,7 @@ class EntityTabForm extends EntityForm {
 
     $form['content']['content_config'] = [
       '#type' => 'container',
+      '#tree' => TRUE,
     ];
 
     $content_plugin = $this->entityTabContentPluginManager->createInstance($entity_tab->get('content_plugin'), [
