@@ -41,11 +41,7 @@ class EntityForm extends EntityTabContentBase implements EntityTabContentInterfa
    * {@inheritdoc}
    */
   public function buildContent(EntityInterface $target_entity) {
-    $build['build'] = [
-      '#markup' => 'form!',
-    ];
-
-    return $build;
+    return \Drupal::service('entity.form_builder')->getForm($target_entity, $this->configuration['form_mode']);
   }
 
 }
