@@ -32,7 +32,8 @@ abstract class EntityTabContentBase extends PluginBase implements EntityTabConte
     $entity_tab = $configuration['entity_tab'];
 
     $this->targetEntityTypeId = $entity_tab->getTargetEntityTypeID();
-    // Zap the configuration the parent method set.
+    // Zap the configuration the parent method set, replace with the actual
+    // configuration from the Entity Tab.
     $this->configuration = $entity_tab->getPluginConfiguration();
     $this->configuration += $this->defaults;
   }
