@@ -16,6 +16,10 @@ use Drupal\entity_ui\Plugin\EntityTabContentInterface;
  */
 class EntityForm extends EntityTabContentBase implements EntityTabContentInterface {
 
+  protected $defaults = [
+    'form_mode' => 'default',
+  ];
+
   /**
    * {@inheritdoc}
    */

@@ -16,6 +16,10 @@ use Drupal\entity_ui\Plugin\EntityTabContentInterface;
  */
 class EntityView extends EntityTabContentBase implements EntityTabContentInterface {
 
+  protected $defaults = [
+    'view_mode' => 'default',
+  ];
+
   /**
    * {@inheritdoc}
    */

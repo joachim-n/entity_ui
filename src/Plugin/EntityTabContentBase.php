@@ -10,6 +10,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  */
 abstract class EntityTabContentBase extends PluginBase implements EntityTabContentInterface {
 
+  protected $defaults = [];
+
   /**
    * The target entity type ID for this plugin instance.
    */
@@ -27,6 +29,7 @@ abstract class EntityTabContentBase extends PluginBase implements EntityTabConte
     $this->targetEntityTypeId = $entity_tab->getTargetEntityTypeID();
     // Zap the configuration the parent method set.
     $this->configuration = $entity_tab->getPluginConfiguration();
+    $this->configuration += $this->defaults;
   }
 
   /**
