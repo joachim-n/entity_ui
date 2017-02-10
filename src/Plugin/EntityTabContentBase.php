@@ -10,6 +10,11 @@ use Drupal\Core\Entity\EntityTypeInterface;
  */
 abstract class EntityTabContentBase extends PluginBase implements EntityTabContentInterface {
 
+  /**
+   * Default configuration values for this plugin.
+   *
+   * TODO: is there a proper way of doing this?
+   */
   protected $defaults = [];
 
   /**
