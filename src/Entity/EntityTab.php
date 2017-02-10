@@ -76,6 +76,11 @@ class EntityTab extends ConfigEntityBase implements EntityTabInterface {
   protected $content_plugin = 'entity_view';
 
   /**
+   * The configuration for the plugin.
+   */
+  protected $content_config = [];
+
+  /**
    * Gets the target entity type ID.
    *
    * @return string
