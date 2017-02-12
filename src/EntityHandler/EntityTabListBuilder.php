@@ -79,7 +79,7 @@ class EntityTabListBuilder extends DraggableListBuilder {
       $entity_type,
       $container->get('entity.manager')->getStorage($entity_type->id()),
       $container->get('entity_type.manager'),
-      $container->get('plugin.manager.entity_tab_content.processor'),
+      $container->get('plugin.manager.entity_tab_content'),
       $container->get('current_route_match')
     );
   }

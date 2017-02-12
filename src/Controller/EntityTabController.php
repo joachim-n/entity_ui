@@ -56,7 +56,7 @@ class EntityTabController implements ContainerInjectionInterface {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('plugin.manager.entity_tab_content.processor'),
+      $container->get('plugin.manager.entity_tab_content'),
       $container->get('current_route_match')
     );
   }

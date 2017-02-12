@@ -56,7 +56,7 @@ class EntityTabDeleteForm extends EntityConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.entity_tab_content.processor'),
+      $container->get('plugin.manager.entity_tab_content'),
       $container->get('plugin.manager.menu.local_task'),
       $container->get('router.builder')
     );
