@@ -66,11 +66,6 @@ class BasicFieldUI extends EntityUIAdminBase {
   public function getRoutes() {
     $routes = [];
 
-    // Use the admin permission for the target entity type.
-    //$admin_permission = $target_entity_type->getAdminPermission();
-    // TEMP! TODO!
-    $admin_permission = 'made up perm';
-
     $route = new Route($this->fieldUiBaseRoute->getPath() . '/entity_ui');
     $route
       ->addDefaults([
@@ -81,7 +76,7 @@ class BasicFieldUI extends EntityUIAdminBase {
       ->addOptions([
         '_target_entity_type_id' => $this->entityTypeId,
       ])
-      ->setRequirement('_permission', $admin_permission);
+      ->setRequirement('_permission', 'administer ' . $this->entityTypeId . ' entity tabs');
 
     $routes["entity_ui.entity_tab.{$this->entityTypeId}.collection"] = $route;
 

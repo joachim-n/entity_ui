@@ -46,10 +46,6 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
   public function getRoutes() {
     $routes = [];
 
-    //$admin_permission = $bundle_entity_type->getAdminPermission();
-    // TEMP! TODO!
-    $admin_permission = 'made up perm';
-
     $bundle_collection_link_template = $this->bundleEntityType->getLinkTemplate('collection');
 
     $route = new Route($bundle_collection_link_template . '/entity_ui');
@@ -62,7 +58,7 @@ class BundleEntityCollection extends EntityUIAdminBase implements EntityUIAdminI
       ->addOptions([
         '_target_entity_type_id' => $this->entityTypeId,
       ])
-      ->setRequirement('_permission', $admin_permission);
+      ->setRequirement('_permission', 'administer ' . $this->entityTypeId . ' entity tabs');
 
     $routes["entity_ui.entity_tab.{$this->entityTypeId}.collection"] = $route;
 
